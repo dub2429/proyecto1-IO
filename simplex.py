@@ -1,22 +1,24 @@
 
 import numpy as np
-from decimal import Decimal
 
-from numpy.lib.type_check import real
-matriz = [[1, 2, -43,78],
- [4, 5, -56, 5],
- [7, 8, 10, 200],
- [99, 10, 9, 8]]
+#matriz = [[1, 2, -43,78],
+ #[4, 5, -56, 5],
+ #[7, 8, 10, 200],
+ #[99, 10, 9, 8]]
 
+matriz = [[-3, -5, 0, 0, 0, 0],
+ [1, 0, 1 , 0, 0 , 5],
+ [0, 2, 0, 1,0,12],
+ [3, 2, 0, 0, 1, 18]]
 matriz_np = np.array(matriz)
 matriz_np=np.float64(matriz_np)
 filaPivote = []
 #pivote = 0
-def imprimir_matriz(matriz):
-     for columna in range(len(matriz[0])):
-        for fila in range(len(matriz)):
-            print(matriz[columna][fila], end=" ")
-        print()
+#def imprimir_matriz(matriz):
+   #  for columna in range(len(matriz[0])):
+   #     for fila in range(len(matriz)):
+    #        print(matriz[columna][fila], end=" ")
+    #    print()
 #imprimir_matriz(matriz)
 
 
@@ -24,11 +26,11 @@ def imprimir_matriz(matriz):
 def cambiar_fila(matriz,fila, numeroFilaPivote):
     
 
-    print("\n\n",fila)
+    #print("\n\n",fila)
 
-    print("\n\n", numeroFilaPivote)
-    print("",matriz)
-    
+    #print("\n\n", numeroFilaPivote)
+    print("\n\nOriginal\n",matriz)
+    #print(matriz)
     nueva_matriz = []
     for i in range(len(matriz)):
         if(i == numeroFilaPivote):
@@ -38,20 +40,23 @@ def cambiar_fila(matriz,fila, numeroFilaPivote):
             while j < len(fila):
                 print(fila[j])
                 matriz[i][j]= fila[j]
-                print(matriz)
                 j += 1
+    print("\n\nNUEVA\n",matriz)
 
 
         #else: 
              #nueva_matriz.append(fila)
              
     #matriz = nueva_matriz
-    print("\n\n",matriz)
-    print("Finalizado")
-    print(matriz[2][0])
-    print(fila)
-    for i in range(len(fila)):
-        print(fila[i])
+    #print("\n\n",matriz)
+    #print("Finalizado")
+    #print(matriz[2][0])
+    #print(fila)
+    
+    #NO BORRAR
+    #for i in range(len(fila)):
+       # print(fila[i])
+
     #i= numeroFilaPivote
    # for i in range(len(fila)):
     #    for j in range(len(matriz[0])):
@@ -86,14 +91,14 @@ def determinar_solucion(matriz):
         
         #print("ESTAMOS REVISANDO",columnaMenor)
         #print(columnaResultado)
-        pivote = 0
+        pivote = 100000
         numeroFila = 0
         #Acá sacamos al pivote y los respectivos valores de la división de LD / columna pivote
-        for i in range(len(columnaMenor+1)):
+        for i in range(len(columnaMenor)):
             print("\nElemento de la Columna Pivote en la iteración: ",columnaMenor[i])
             print("Elemento de columna resultado: ",columnaResultado[i])
             print("Columna Resultado: ", (columnaResultado[i] / columnaMenor[i]))
-            if i>0 and (pivote < (columnaResultado[i] / columnaMenor[i])) and ((columnaResultado[i] / columnaMenor[i]) > 0):
+            if (pivote > (columnaResultado[i] / columnaMenor[i])) and ((columnaResultado[i] / columnaMenor[i]) > 0): 
                     pivote = columnaMenor[i]
                     filaPivote = matriz_np[i]
                     numeroFila= i
