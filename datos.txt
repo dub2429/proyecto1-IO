@@ -1,0 +1,213 @@
+Matriz inicial: 
+[[-3. -5.  0.  0.  0.  0.]
+ [ 1.  0.  1.  0.  0.  4.]
+ [ 0.  2.  0.  1.  0. 12.]
+ [ 3.  2.  0.  0.  1. 18.]]
+
+
+
+
+Operación a realizar: 0.0/2.0
+
+Operación a realizar: 2.0/2.0
+
+Operación a realizar: 0.0/2.0
+
+Operación a realizar: 1.0/2.0
+
+Operación a realizar: 0.0/2.0
+
+Operación a realizar: 12.0/2.0
+
+
+Pivote: 2.0
+Cambiando Fila: Pivote
+Fila Pivote: [0.0, 2.0, 0.0, 1.0, 0.0, 12.0]
+Nueva Fila pivote: [0.0, 1.0, 0.0, 0.5, 0.0, 6.0]
+Nueva Matriz:
+[[-3.  -5.   0.   0.   0.   0. ]
+ [ 1.   0.   1.   0.   0.   4. ]
+ [ 0.   1.   0.   0.5  0.   6. ]
+ [ 3.   2.   0.   0.   1.  18. ]]
+
+
+
+
+Operación a realizar: -3.0+5.0*0.0
+
+Operación a realizar: -5.0+5.0*1.0
+
+Operación a realizar: 0.0+5.0*0.0
+
+Operación a realizar: 0.0+5.0*0.5
+
+Operación a realizar: 0.0+5.0*0.0
+
+Operación a realizar: 0.0+5.0*6.0
+
+Cambiando Fila: 1
+Fila Antigua: [-3.0, -5.0, 0.0, 0.0, 0.0, 0.0]
+Nueva Fila: [-3.0, 0.0, 0.0, 2.5, 0.0, 30.0]
+Nueva Matriz:
+[[-3.   0.   0.   2.5  0.  30. ]
+ [ 1.   0.   1.   0.   0.   4. ]
+ [ 0.   1.   0.   0.5  0.   6. ]
+ [ 3.   2.   0.   0.   1.  18. ]]
+
+
+
+
+Operación a realizar: 1.0+-0.0*0.0
+
+Operación a realizar: 0.0+-0.0*1.0
+
+Operación a realizar: 1.0+-0.0*0.0
+
+Operación a realizar: 0.0+-0.0*0.5
+
+Operación a realizar: 0.0+-0.0*0.0
+
+Operación a realizar: 4.0+-0.0*6.0
+
+Cambiando Fila: 2
+Fila Antigua: [1.0, 0.0, 1.0, 0.0, 0.0, 4.0]
+Nueva Fila: [1.0, 0.0, 1.0, 0.0, 0.0, 4.0]
+Nueva Matriz:
+[[-3.   0.   0.   2.5  0.  30. ]
+ [ 1.   0.   1.   0.   0.   4. ]
+ [ 0.   1.   0.   0.5  0.   6. ]
+ [ 3.   2.   0.   0.   1.  18. ]]
+
+
+
+
+Operación a realizar: 3.0+-2.0*0.0
+
+Operación a realizar: 2.0+-2.0*1.0
+
+Operación a realizar: 0.0+-2.0*0.0
+
+Operación a realizar: 0.0+-2.0*0.5
+
+Operación a realizar: 1.0+-2.0*0.0
+
+Operación a realizar: 18.0+-2.0*6.0
+
+Cambiando Fila: 4
+Fila Antigua: [3.0, 2.0, 0.0, 0.0, 1.0, 18.0]
+Nueva Fila: [3.0, 0.0, 0.0, -1.0, 1.0, 6.0]
+Nueva Matriz:
+[[-3.   0.   0.   2.5  0.  30. ]
+ [ 1.   0.   1.   0.   0.   4. ]
+ [ 0.   1.   0.   0.5  0.   6. ]
+ [ 3.   0.   0.  -1.   1.   6. ]]
+
+
+
+
+Operación a realizar: 3.0/3.0
+
+Operación a realizar: 0.0/3.0
+
+Operación a realizar: 0.0/3.0
+
+Operación a realizar: -1.0/3.0
+
+Operación a realizar: 1.0/3.0
+
+Operación a realizar: 6.0/3.0
+
+
+Pivote: 3.0
+Cambiando Fila: Pivote
+Fila Pivote: [3.0, 0.0, 0.0, -1.0, 1.0, 6.0]
+Nueva Fila pivote: [1.0, 0.0, 0.0, -0.3333333333333333, 0.3333333333333333, 2.0]
+Nueva Matriz:
+[[-3.          0.          0.          2.5         0.         30.        ]
+ [ 1.          0.          1.          0.          0.          4.        ]
+ [ 0.          1.          0.          0.5         0.          6.        ]
+ [ 1.          0.          0.         -0.33333333  0.33333333  2.        ]]
+
+
+
+
+Operación a realizar: -3.0+3.0*1.0
+
+Operación a realizar: 0.0+3.0*0.0
+
+Operación a realizar: 0.0+3.0*0.0
+
+Operación a realizar: 2.5+3.0*-0.3333333333333333
+
+Operación a realizar: 0.0+3.0*0.3333333333333333
+
+Operación a realizar: 30.0+3.0*2.0
+
+Cambiando Fila: 1
+Fila Antigua: [-3.0, 0.0, 0.0, 2.5, 0.0, 30.0]
+Nueva Fila: [0.0, 0.0, 0.0, 1.5, 1.0, 36.0]
+Nueva Matriz:
+[[ 0.          0.          0.          1.5         1.         36.        ]
+ [ 1.          0.          1.          0.          0.          4.        ]
+ [ 0.          1.          0.          0.5         0.          6.        ]
+ [ 1.          0.          0.         -0.33333333  0.33333333  2.        ]]
+
+
+
+
+Operación a realizar: 1.0+-1.0*1.0
+
+Operación a realizar: 0.0+-1.0*0.0
+
+Operación a realizar: 1.0+-1.0*0.0
+
+Operación a realizar: 0.0+-1.0*-0.3333333333333333
+
+Operación a realizar: 0.0+-1.0*0.3333333333333333
+
+Operación a realizar: 4.0+-1.0*2.0
+
+Cambiando Fila: 2
+Fila Antigua: [1.0, 0.0, 1.0, 0.0, 0.0, 4.0]
+Nueva Fila: [0.0, 0.0, 1.0, 0.3333333333333333, -0.3333333333333333, 2.0]
+Nueva Matriz:
+[[ 0.          0.          0.          1.5         1.         36.        ]
+ [ 0.          0.          1.          0.33333333 -0.33333333  2.        ]
+ [ 0.          1.          0.          0.5         0.          6.        ]
+ [ 1.          0.          0.         -0.33333333  0.33333333  2.        ]]
+
+
+
+
+Operación a realizar: 0.0+-0.0*1.0
+
+Operación a realizar: 1.0+-0.0*0.0
+
+Operación a realizar: 0.0+-0.0*0.0
+
+Operación a realizar: 0.5+-0.0*-0.3333333333333333
+
+Operación a realizar: 0.0+-0.0*0.3333333333333333
+
+Operación a realizar: 6.0+-0.0*2.0
+
+Cambiando Fila: 3
+Fila Antigua: [0.0, 1.0, 0.0, 0.5, 0.0, 6.0]
+Nueva Fila: [0.0, 1.0, 0.0, 0.5, 0.0, 6.0]
+Nueva Matriz:
+[[ 0.          0.          0.          1.5         1.         36.        ]
+ [ 0.          0.          1.          0.33333333 -0.33333333  2.        ]
+ [ 0.          1.          0.          0.5         0.          6.        ]
+ [ 1.          0.          0.         -0.33333333  0.33333333  2.        ]]
+
+
+
+
+
+Matriz Final: 
+[[ 0.          0.          0.          1.5         1.         36.        ]
+ [ 0.          0.          1.          0.33333333 -0.33333333  2.        ]
+ [ 0.          1.          0.          0.5         0.          6.        ]
+ [ 1.          0.          0.         -0.33333333  0.33333333  2.        ]]
+U: 36.0
+Solución: Sin Terminar
