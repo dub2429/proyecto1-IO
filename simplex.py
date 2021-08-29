@@ -1,5 +1,25 @@
 
 import numpy as np
+import sys
+
+
+def open_file(file_name):
+    file1 = open(file_name, 'r')
+    Lines = file1.readlines()
+    i = 0
+    while(i<len(Lines)):
+        Lines[i] = [int(e) if e.isdigit() else e for e in Lines[i].split(',')]
+        i+=1
+    return Lines
+
+
+if sys.argv[1] == "-h":
+    print(" El archivo de código fuente a ejecutarse debe llamarse simplex.py, ejecutando de la forma:\n"+"python simplex.py [-h] archivo.txt")
+    Lines = open_file(sys.argv[2])
+    out = open("out_"+sys.argv[2], 'w')
+else:
+    Lines = open_file(sys.argv[1])
+    out = open("out_"+sys.argv[1], 'w')
 
 #matriz = [[1, 2, -43,78],
  #[4, 5, -56, 5],
