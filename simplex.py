@@ -105,7 +105,6 @@ def determinar_solucion(matriz, iteracion):
     print(matriz)
     determinar_solucion(matriz, 1)
     
-
             
 determinar_solucion(matriz_np, 0)
 
