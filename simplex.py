@@ -72,12 +72,12 @@ def cambiar_fila(matriz,fila, numeroFilaPivote):
 #cambiar_fila(matriz_np)
 
 #largo = [1, 45, 7]
-def determinar_solucion(matriz):
+def determinar_solucion(matriz, pivote):
     #print("\n\nOriginal\n",matriz)
     menorActual = 0
     posicionMenorEnColumna = 0
     #Sacamos al menor de U
-    for x in range(len(matriz[0])):
+    for x in range(len(matriz[0]-1)):
         if matriz[0][x] <= 0 and matriz[0][x] < menorActual:
             menorActual = matriz[0][x]
             posicionMenorEnColumna = x
@@ -96,37 +96,48 @@ def determinar_solucion(matriz):
         columnaResultado = matriz[:,(len(matriz[0]))-1]
         
         #print("ESTAMOS REVISANDO",columnaMenor)
-        #print(columnaResultado)
-        pivote = 100000
+        #print(columnaResultado) 
         numeroFila = 0
+        
         #Acá sacamos al pivote y los respectivos valores de la división de LD / columna pivote
-        for i in range(len(matriz)):
-           # print("\nElemento de la Columna Pivote en la iteración: ",columnaMenor[i])
-           #print("Elemento de columna resultado: ",columnaResultado[i])
-           # print("Columna Resultado: ", (columnaResultado[i] / columnaMenor[i]))
-           if columnaMenor[i] > 0 and (pivote > (columnaResultado[i] / columnaMenor[i])) and ((columnaResultado[i] / columnaMenor[i]) > 0): 
-                    pivote = columnaMenor[i]
-                    filaPivote = matriz[i]
-                    numeroFila= i
-                   # print("Fila pivote:",filaPivote)
-                    #print("Pivote: ", pivote)
-                   # print("Resultado de LD/elementos de la columna pivote: ",columnaResultado[i] / columnaMenor[i])
-                   # print("Número de fila del pivote: ", i)
-                    
-        
-        #ARREGLAR PORQUE SOLO ES PARA MxM
-        #print("\n",filaPivote)
-        
-        #NO BORRAR
-        # nuevaFila = []    
-        #i =0
-        #while i < len(filaPivote):
-            #nuevaFila.append(filaPivote[i] / pivote)
-            
-            #i+=1
-        
-        #print(nuevaFila)
+        if pivote == 10000:
+            for i in range(len(matriz)):
+            # print("\nElemento de la Columna Pivote en la iteración: ",columnaMenor[i])
+            #print("Elemento de columna resultado: ",columnaResultado[i])
+            # print("Columna Resultado: ", (columnaResultado[i] / columnaMenor[i]))
 
+                if columnaMenor[i] > 0 and (pivote > (columnaResultado[i] / columnaMenor[i])) and ((columnaResultado[i] / columnaMenor[i]) > 0): 
+                            pivote = columnaMenor[i]
+                            filaPivote = matriz[i]
+                            numeroFila= i
+                        # print("Fila pivote:",filaPivote)
+                            #print("Pivote: ", pivote)
+                        # print("Resultado de LD/elementos de la columna pivote: ",columnaResultado[i] / columnaMenor[i])
+                        # print("Número de fila del pivote: ", i)
+                            
+                
+                #ARREGLAR PORQUE SOLO ES PARA MxM
+                #print("\n",filaPivote)
+                
+                #NO BORRAR
+                # nuevaFila = []    
+                #i =0
+                #while i < len(filaPivote):
+                    #nuevaFila.append(filaPivote[i] / pivote)
+                    
+                    #i+=1
+                
+                #print(nuevaFila)
+        elif pivote == 0:
+            for i in range(len(matriz)):
+            # print("\nElemento de la Columna Pivote en la iteración: ",columnaMenor[i])
+            #print("Elemento de columna resultado: ",columnaResultado[i])
+            # print("Columna Resultado: ", (columnaResultado[i] / columnaMenor[i]))
+
+                if columnaMenor[i] > 0 and (pivote < (columnaResultado[i] / columnaMenor[i])) and ((columnaResultado[i] / columnaMenor[i]) > 0): 
+                            pivote = columnaMenor[i]
+                            filaPivote = matriz[i]
+                            numeroFila= i
         y = 0
         z = 0
         m = 0
@@ -142,7 +153,7 @@ def determinar_solucion(matriz):
                     filaPivoteNueva.append(filaPivote[z] / pivote)
                     z +=1
                     #print("Llegó")
-                cambiar_fila(matriz, nuevaFila, numeroFila)
+                cambiar_fila(matriz, filaPivoteNueva, numeroFila)
                 nuevaFila = [] 
                 #print("ES NUEVA FILA", nuevaFila, "XD")
                    
@@ -155,7 +166,7 @@ def determinar_solucion(matriz):
                 while n < len(filaPivote):
                     #print(columnaMenor[m])
                     #print("+[0m Columna REsultado ", columnaResultado[m])
-                    nuevaFila.append(matriz[m][n]+(-columnaMenor[m]*filaPivoteNueva[n]))
+                    nuevaFila.append(matriz[m][n]+((-columnaMenor[m])*filaPivoteNueva[n]))
                     n += 1
                     #print("LlegóXDDDDDDDDDDDDD")
             cambiar_fila(matriz, nuevaFila, m)
@@ -164,41 +175,14 @@ def determinar_solucion(matriz):
             
             m += 1
     print(matriz)
-    determinar_solucion(matriz)
+    determinar_solucion(matriz, 0)
     
-###############
- #       i =0
-   #     while i < len(filaPivote):
-  #          nuevaFila.append(filaPivote[i] / pivote)
-   #         
-    #        i+=1
-        
-    #    print(nuevaFila)
 
-    #return cambiar_fila(matriz,nuevaFila,numeroFila)
-
-##########
-#def cambiarFilas(matriz,filaPivote,numeroFilaPivote,pivote):
-  #  i = 0
-   # nuevaFila = [] 
-   # print("PAsó")
-   # while i < 1:
-      #  print("Llegó")
-      #  if i != 4:
-      #      print("IF")
-       #     nuevaFila.append(filaPivote[i] / pivote)
-       #     cambiar_fila(matriz, nuevaFila, numeroFilaPivote)
-       #     nuevaFila = []
-        #    x = 0
-       #     while x < len(filaPivote):
-         #       if(i != numeroFilaPivote):
-           #         print("ENTRANDO")
-          #      x += 1
-        #else:
-           # i+=1
-#
             
-determinar_solucion(matriz_np)
+determinar_solucion(matriz_np, 10000)
 #cambiarFilas(matriz_np, filaPivote,4,2)
+
+
+
 
 
