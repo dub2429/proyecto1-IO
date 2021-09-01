@@ -1,13 +1,8 @@
 import numpy as np
 
-
-
-import numpy as np
-
 def leerDocumento():
     with open('archivo1.txt') as documento:
         contenido = documento.read()
-        #print(contenido.rstrip())
     arreglo = contenido.split("\n")
     arregloMatriz = []
     for i in range(len(arreglo)):
@@ -15,6 +10,19 @@ def leerDocumento():
     print(arregloMatriz)
     return crear_matriz(arregloMatriz)
 
+def determinarSoluciones(variablesBasicas,variables,matriz):
+    #print("largo variables basicas: "+ str(len(variablesBasicas)))
+    solucion = []
+    for i in range(len(variables)):
+        if variables[i] not in variablesBasicas:
+            variables[i] = 0
+        else:
+           #print("Pos "+ str(variablesBasicas.index(variables[i])))
+            pos = variablesBasicas.index(variables[i])
+            #print("# "+str(matriz[pos+2][len(matriz[0])-1]))
+            variables[i] = matriz[pos+2][len(matriz[0])-1]
+            #print(variables)
+    #print(variables)
 
 def crear_matriz(matrizDocumento):
     numero_varZ = int(matrizDocumento[0][2])
@@ -25,13 +33,12 @@ def crear_matriz(matrizDocumento):
     variablesBasicas = numero_inec+numero_varZ
     variablesNoBasicas = numero_varZ
     variablesNoBasicasIngresar = numero_varZ
-
+    variablesBasicas = numero_varZ+1
     print("#Variables Básicas: "+ str(variablesBasicas-variablesNoBasicas)+ "   #Variables No Básicas: " + str(variablesNoBasicas))
     for i in range(num_filas):
         matriz.append([])
         for j in range(num_colum):
                 matriz[i].append(0)
-    #print(matriz)
     
     for i in range(num_filas):
         if i == 0:
@@ -49,18 +56,16 @@ def crear_matriz(matrizDocumento):
                     matriz[i][j] = "U"
                 elif elemento<len(matrizDocumento[i]) and matrizDocumento[i][elemento]:
                      matriz[i][j] = -float(matrizDocumento[i][elemento])
-                     elemento += 1
-                
+                     elemento += 1        
         else:
             elemento = 0
             for j in range(num_colum):
                 if j == 0:
-                    matriz[i][j] = "X"+str(i+1) #Cambiar y meter las variables básicas del arreglo
+                    matriz[i][j] = "X"+str(variablesBasicas)
+                    variablesBasicas +=1
                 elif elemento<len(matrizDocumento[i]) and matrizDocumento[i][elemento] != "<=" :
                      matriz[i][j] = float(matrizDocumento[i][elemento])
                      elemento += 1
-                #elif matrizDocumento[i][j] == "<=":
-                    #elemento += 1
                 if j == variablesNoBasicasIngresar+1:
                     matriz[i][j] = 1
                     
@@ -68,20 +73,14 @@ def crear_matriz(matrizDocumento):
                     if j == len(matriz[i])-1:
                         matriz[i][j] = float(matrizDocumento[i][len(matrizDocumento[i])-1])
                         variablesNoBasicasIngresar += 1
-                    
-
-    #print(matriz)
     return matriz
 
 
 
 matriz = leerDocumento()
 matriz_np = np.array(matriz)
-
-#np.array([[15,26,2,17,22],[13,8,9,3,4]])
 elemento= matriz_np[1][1]
 print(float(elemento)*5)
-
 matrizATrabajar = matriz_np[1:, 1:]
 matrizATrabajar=np.float64(matrizATrabajar)
 
@@ -95,8 +94,7 @@ def cambiar_fila(matriz,fila, numeroFilaPivote):
             while j < len(fila):
                 matriz[i][j]= fila[j]
                 j += 1
-    #texto = "\n\n\n\n\n\n\nNueva Matriz\n" + str(matriz) 
-    #escribir(texto)
+
 
 def escribir(dato):
     archivo = open('datos.txt','a')
@@ -117,8 +115,10 @@ def determinar_solucion(matriz, iteracion):
             posicionMenorEnColumna = x
 
     if(menorActual >= 0):
-        print("\nMatriz Final: \n", matriz, "\nU: ", matriz[0][len(matriz[0])-1] ,"\nSolución: ", "Sin Terminar")
-        texto = "\n\nMatriz Final: \n"+ str(matriz)+ "\nU: "+ str(matriz[0][len(matriz[0])-1]) +"\nSolución: "+ "Sin Terminar"
+        matrizSolucion= crearMatrizFinal(matriz_np,matriz)
+        #determinarSoluciones(str(matrizSolucion[1:,0]), str(matrizSolucion[0]), matrizSolucion)
+        print("\nMatriz Final: \n", matrizSolucion, "\nU: ", matriz[0][len(matriz[0])-1] ,"\nSolución: ", "Sin Terminar")
+        texto = "\n\nMatriz Final: \n"+ matrizSolucion+ "\nU: "+ str(matriz[0][len(matriz[0])-1]) +"\nSolución: "+ "Sin Terminar"
         return escribir(texto)
     else:                
         #columnaMenor es columnaPivote y columnaResultado es el LD 
@@ -156,7 +156,6 @@ def determinar_solucion(matriz, iteracion):
         filaPivoteNueva= []
         filaAntigua = []
         nuevaVB = []
-        #print(numeroFila)
 
         while y < len(matriz):
             if y == numeroFila:
@@ -172,9 +171,10 @@ def determinar_solucion(matriz, iteracion):
                 cambiar_fila(matriz_np, nuevaVB, numeroFila+1)
                 nuevaFila = []
                 nuevaVB = []    
-                print("\n\n La nuevaVB en matriz_np es: \n "+str(matriz_np))                
+                #print("\n\n La nuevaVB en matriz_np es: \n "+str(matriz_np))                
             y+=1
-        texto = "\n\nPivote: " +str(pivote) +textoColumnaPivote+"\nCambiando Fila: Pivote" +"\nFila Pivote: " + str(filaAntigua) + "\nNueva Fila pivote: " + str(filaPivoteNueva) + "\nNueva Matriz:\n"+ str(matriz) +  "\n\n\n"
+        
+        texto = "\n\nPivote: " +str(pivote) +textoColumnaPivote+"\nCambiando Fila: Pivote" +"\nFila Pivote: " + str(filaAntigua) + "\nNueva Fila pivote: " + str(filaPivoteNueva) + "\nNueva Matriz:\n"+ crearMatrizFinal(matriz_np,matriz) +  "\n\n\n"
         escribir(texto)
         filaAntigua = []
         while m < len(matriz):
@@ -184,28 +184,25 @@ def determinar_solucion(matriz, iteracion):
                 while n < len(filaPivote):
                     filaAntigua.append(matriz[m][n])
                     texto = "\nOperación a realizar: " + str(matriz[m][n]) + "+" +str(-columnaMenor[m])+"*"+str(filaPivoteNueva[n])
-                    escribir(texto)
+                    #escribir(texto)
                     nuevaFila.append(matriz[m][n]+((-columnaMenor[m])*filaPivoteNueva[n]))
                     n += 1
                 cambiar_fila(matriz, nuevaFila, m)
-                texto = "\nCambiando Fila: " + str(m+1) +"\nFila Antigua: " + str(filaAntigua) + "\nNueva Fila: " + str(nuevaFila)+ "\nNueva Matriz:\n"+ str(matriz)+ "\n\n\n"
+                texto = "\nCambiando Fila: " + str(m+1) +"\nFila Antigua: " + str(filaAntigua) + "\nNueva Fila: " + str(nuevaFila)+ "\nNueva Matriz:\n"+ crearMatrizFinal(matriz_np,matriz)+ "\n\n\n"
                 escribir(texto) 
                 nuevaFila = []  
-                filaAntigua = [] 
-            m += 1
-        
+                filaAntigua = []
+             
+            m += 1   
     determinar_solucion(matriz, 1)
-    crearMatrizFinal(matriz_np,matriz)
-    
+
+
 def crearMatrizFinal(matrizConLetras,matrizConNumeros):
    
     matrizFinal = []
     columnaLetras = matrizConLetras[1:,0]
 
-    #print("Columna Letras en Crear Matriz Final: " + str(columnaLetras))
     
-    #print("Len de la columna letras: "+ str(len(columnaLetras)))
-    #print("Len de numeros: "+ str(len(matrizConNumeros)))
     for i in range(len(matrizConNumeros)):
         letra = np.array(columnaLetras[i])
         numeros = np.array(matrizConNumeros[i])
@@ -220,9 +217,23 @@ def crearMatrizFinal(matrizConLetras,matrizConNumeros):
             filaNumeros += str(round(matrizFinal[i+1][j],2)) + "  "
         textoMatriz += "   " + str(matrizFinal[i])+ "  " + filaNumeros + "\n"
         i += 2
-    textoFinal = str(matrizConLetras[0])+ "\n" + textoMatriz
-    print(textoFinal)
     
+    
+    textoFinal = str(matrizConLetras[0])+ "\n" + textoMatriz 
+    #No borrar, estamos trabajando en esto
+    #j = 2
+    #listaVB = []
+    #elemento = ""
+    #while j <len(matrizConLetras):
+     #   elemento = matrizConLetras[j][0]
+     #   listaVB.append(elemento)
+     #   j+=1
+        #print("VARIABELSB" + str(listaVB))#Saca VB
+    #variables = matrizConLetras[0][1:len(matrizConLetras)-1]
+    #print("VARIABELS"+str(matrizConLetras[0][1:len(matrizConLetras)-1]))#saca la variables sin VB y LD del ecnabezado
+    #sol= determinarSoluciones(listaVB, variables, textoMatriz)
+    return textoFinal
 
-           
+
+              
 determinar_solucion(matrizATrabajar, 0)
