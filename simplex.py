@@ -1,6 +1,7 @@
 import numpy as np
 
 
+
 import numpy as np
 
 def leerDocumento():
@@ -13,13 +14,6 @@ def leerDocumento():
         arregloMatriz.append(arreglo[i].split(","))
     print(arregloMatriz)
     return crear_matriz(arregloMatriz)
-
-i = 0
-def crearMatriz(contenido):
-    print(contenido)
-
-
-
 
 
 def crear_matriz(matrizDocumento):
@@ -76,7 +70,7 @@ def crear_matriz(matrizDocumento):
                         variablesNoBasicasIngresar += 1
                     
 
-    print(matriz)
+    #print(matriz)
     return matriz
 
 
@@ -88,8 +82,8 @@ matriz_np = np.array(matriz)
 elemento= matriz_np[1][1]
 print(float(elemento)*5)
 
-matrix = matriz_np[1:, 1:]
-matrix=np.float64(matrix)
+matrizATrabajar = matriz_np[1:, 1:]
+matrizATrabajar=np.float64(matrizATrabajar)
 
 
 filaPivote = []
@@ -111,6 +105,7 @@ def escribir(dato):
 texto = "Matriz inicial: " + "\n" + str(matriz_np) + "\n\n\n"  
 escribir(texto)
 
+###############Solución##################################################################################
 def determinar_solucion(matriz, iteracion):
 
     menorActual = 0
@@ -126,12 +121,14 @@ def determinar_solucion(matriz, iteracion):
         texto = "\n\nMatriz Final: \n"+ str(matriz)+ "\nU: "+ str(matriz[0][len(matriz[0])-1]) +"\nSolución: "+ "Sin Terminar"
         return escribir(texto)
     else:                
-        #columnaMenor es columnaPivote y columnaResultado es el LD
+        #columnaMenor es columnaPivote y columnaResultado es el LD 
+        #columnaPivoteVariables es la columnaPivote de la matriz que contiene las VB
         columnaMenor = matriz[:,posicionMenorEnColumna]
-        columnaResultado = matriz[:,(len(matriz[0]))-1]               
+        columnaResultado = matriz[:,(len(matriz[0]))-1]  
+        columnaPivoteVariables = matriz_np[:,posicionMenorEnColumna+1]           
         numeroFila = 0
         textoColumnaPivote = "\nColumna Pivote: "+ str(columnaMenor) 
-        
+        print("\nColumna Pivote Matriz_np: "+str(columnaPivoteVariables))
         #Acá sacamos al pivote y los respectivos valores de la división de LD / columna pivote
         if iteracion == 0:
             pivote = 10000
@@ -139,6 +136,8 @@ def determinar_solucion(matriz, iteracion):
                 if columnaMenor[i] > 0 and (pivote > (columnaResultado[i] / columnaMenor[i])) and ((columnaResultado[i] / columnaMenor[i]) > 0): 
                             pivote = columnaMenor[i]
                             filaPivote = matriz[i]
+                            filaPivoteVariables = matriz_np[i+1]
+                            print("\nFila Pivote Matriz_np: "+str(filaPivoteVariables))
                             numeroFila= i
         elif iteracion >0:
             pivote = 0
@@ -146,6 +145,8 @@ def determinar_solucion(matriz, iteracion):
                 if columnaMenor[i] > 0 and (pivote < (columnaResultado[i] / columnaMenor[i])) and ((columnaResultado[i] / columnaMenor[i]) > 0): 
                             pivote = columnaMenor[i]
                             filaPivote = matriz[i]
+                            filaPivoteVariables = matriz_np[i+1]
+                            print("\nFila Pivote Matriz_np: "+str(filaPivoteVariables))
                             numeroFila= i
             
         y = 0
@@ -154,6 +155,7 @@ def determinar_solucion(matriz, iteracion):
         nuevaFila = [] 
         filaPivoteNueva= []
         filaAntigua = []
+        nuevaVB = []
         #print(numeroFila)
 
         while y < len(matriz):
@@ -165,8 +167,12 @@ def determinar_solucion(matriz, iteracion):
                     filaAntigua.append(filaPivote[z])
                     filaPivoteNueva.append(filaPivote[z] / pivote)
                     z +=1
+                nuevaVB.append(columnaPivoteVariables[0])
                 cambiar_fila(matriz, filaPivoteNueva, numeroFila)
-                nuevaFila = []                    
+                cambiar_fila(matriz_np, nuevaVB, numeroFila+1)
+                nuevaFila = []
+                nuevaVB = []    
+                print("\n\n La nuevaVB en matriz_np es: \n "+str(matriz_np))                
             y+=1
         texto = "\n\nPivote: " +str(pivote) +textoColumnaPivote+"\nCambiando Fila: Pivote" +"\nFila Pivote: " + str(filaAntigua) + "\nNueva Fila pivote: " + str(filaPivoteNueva) + "\nNueva Matriz:\n"+ str(matriz) +  "\n\n\n"
         escribir(texto)
@@ -188,9 +194,35 @@ def determinar_solucion(matriz, iteracion):
                 filaAntigua = [] 
             m += 1
         
-    #print(matriz)
     determinar_solucion(matriz, 1)
+    crearMatrizFinal(matriz_np,matriz)
+    
+def crearMatrizFinal(matrizConLetras,matrizConNumeros):
+   
+    matrizFinal = []
+    columnaLetras = matrizConLetras[1:,0]
+
+    #print("Columna Letras en Crear Matriz Final: " + str(columnaLetras))
+    
+    #print("Len de la columna letras: "+ str(len(columnaLetras)))
+    #print("Len de numeros: "+ str(len(matrizConNumeros)))
+    for i in range(len(matrizConNumeros)):
+        letra = np.array(columnaLetras[i])
+        numeros = np.array(matrizConNumeros[i])
+        matrizFinal.append(letra)
+        matrizFinal.append(numeros)
+    
+    textoMatriz= ""
+    i = 0  
+    while i < (len(matrizFinal)):
+        filaNumeros = ""
+        for j in range (len(matrizFinal[i+1])):
+            filaNumeros += str(round(matrizFinal[i+1][j],2)) + "  "
+        textoMatriz += "   " + str(matrizFinal[i])+ "  " + filaNumeros + "\n"
+        i += 2
+    textoFinal = str(matrizConLetras[0])+ "\n" + textoMatriz
+    print(textoFinal)
     
 
-            
-determinar_solucion(matrix, 0)
+           
+determinar_solucion(matrizATrabajar, 0)
