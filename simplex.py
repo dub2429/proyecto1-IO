@@ -10,6 +10,27 @@ def leerDocumento():
     #print(arregloMatriz)
     return crear_matriz(arregloMatriz)
 
+#NO BORRAR ESTAMOS INCORPORANDO ESTA FUNCIONALIDAD
+#def determinarMultiplesSoluciones(matriz):
+   # encabezado = matriz[0][1:len(matriz[0])-1]
+   # VB = matrizLetras[1:,0] 
+    #resultados =  matriz[1][1:len(matriz[1])-1] 
+    #respuesta = 0
+    
+    #i = 0
+   # while i < (len(encabezado)):
+     #   if encabezado[i] not in VB:
+       #     if resultados[i] == "0.0":
+         #       posicionVariableNoBásica = i
+          #      print("Hay solución múltiple por variable", encabezado[i], "en la posicion ", str(i+1), "de la fila U, ya que es variable No Básica y el valor es 0")
+           #     i = len(encabezado)+1
+           #     respuesta = 1
+       # i += 1
+    #print(str(respuesta), str(posicionVariableNoBásica))
+    #return(respuesta, posicionVariableNoBásica, "HAY SOLUCIÓN MULTIPLE")   
+    #print(resultados)
+
+
 def determinarSoluciones(variablesBasicas,variables, matrizNumero):
     #print("largo variables basicas: "+ str(len(variablesBasicas)))
     for i in range(len(variables)):
@@ -72,6 +93,7 @@ def crear_matriz(matrizDocumento):
                     if j == len(matriz[i])-1:
                         matriz[i][j] = float(matrizDocumento[i][len(matrizDocumento[i])-1])
                         variablesNoBasicasIngresar += 1
+                    
     return matriz
 
 
@@ -99,9 +121,10 @@ def escribir(dato):
     archivo = open('datos.txt','a')
     nuevaLinea= str(dato) + "\n"
     archivo.write(nuevaLinea)
-texto = "Matriz inicial: " + "\n" + str(matriz_np) + "\n\n\n"  
+texto = "Matriz inicial: " + "\n" + str(matriz_np) + "\n"  
 escribir(texto)
 
+        #print("Solución" + str(sol))
 ###############Solución##################################################################################
 def determinar_solucion(matriz, iteracion):
 
@@ -112,10 +135,11 @@ def determinar_solucion(matriz, iteracion):
         if matriz[0][x] <= 0 and matriz[0][x] < menorActual:
             menorActual = matriz[0][x]
             posicionMenorEnColumna = x
-
+        
     if(menorActual >= 0):
         matrizSolucion= crearMatrizFinal(matriz_np,matriz)
         #No borrar, estamos trabajando en esto
+        #print("Solución" + str(sol))
         j = 2
         listaVB = []
         elemento = ""
@@ -126,14 +150,15 @@ def determinar_solucion(matriz, iteracion):
             #print("VARIABELSB" + str(listaVB))#Saca VB
         variables = matriz_np[0][1:len(matriz_np[0])-1]
         #print("VARIABELS"+str(matrizConLetras[0][1:len(matrizConLetras)-1]))#saca la variables sin VB y LD del ecnabezado
-        solucion= determinarSoluciones(listaVB, variables, matriz)
-        #print("Solución" + str(sol))
-
+        solucion= determinarSoluciones(listaVB, variables, matriz) 
         #determinarSoluciones(str(matrizSolucion[1:,0]), str(matrizSolucion[0]), matrizSolucion)
         print("\nMatriz Final: \n", matrizSolucion, "\nU: ", matriz[0][len(matriz[0])-1] ,"\nSolución: ", solucion)
         texto = "\n\nMatriz Final: \n"+ matrizSolucion+ "\nU: "+ str(matriz[0][len(matriz[0])-1]) +"\nSolución: "+ str(solucion)
-        return escribir(texto)
-    else:                
+        return escribir(texto)       
+
+
+    else:   
+             
         #columnaMenor es columnaPivote y columnaResultado es el LD 
         #columnaPivoteVariables es la columnaPivote de la matriz que contiene las VB
         columnaMenor = matriz[:,posicionMenorEnColumna]
@@ -143,7 +168,7 @@ def determinar_solucion(matriz, iteracion):
         textoColumnaPivote = "\nColumna Pivote: "+ str(columnaMenor) 
         #print("\nColumna Pivote Matriz_np: "+str(columnaPivoteVariables))
         #Acá sacamos al pivote y los respectivos valores de la división de LD / columna pivote
-        if iteracion == 0:
+        if iteracion == 0:  
             pivote = 10000
             for i in range(len(matriz)):
                 if columnaMenor[i] > 0 and (pivote > (columnaResultado[i] / columnaMenor[i])) and ((columnaResultado[i] / columnaMenor[i]) > 0): 
@@ -207,7 +232,21 @@ def determinar_solucion(matriz, iteracion):
                 filaAntigua = []
              
             m += 1 
-          
+        #NO BORRAR
+        #j = 2
+        #listaVB = []
+        #elemento = ""
+        #while j <len(matriz_np):
+        #    elemento = matriz_np[j][0]
+        #    listaVB.append(elemento)
+        #    j+=1
+            #print("VARIABELSB" + str(listaVB))#Saca VB
+       # variables = matriz_np[0][1:len(matriz_np[0])-1]
+        #print("VARIABELS"+str(matrizConLetras[0][1:len(matrizConLetras)-1]))#saca la variables sin VB y LD del ecnabezado
+       # solucion= determinarSoluciones(listaVB, variables, matriz) 
+       # texto = "Solución parcial: " + str(solucion)
+       # escribir(texto) 
+        
     determinar_solucion(matriz, 1)
 
 
@@ -239,3 +278,6 @@ def crearMatrizFinal(matrizConLetras,matrizConNumeros):
 
               
 determinar_solucion(matrizATrabajar, 0)
+
+
+
