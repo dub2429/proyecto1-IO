@@ -12,9 +12,9 @@ def leerDocumento():
 
 def determinarMultiplesSoluciones(encabezado,variablesBasicas,matrizNumeros):
     encabezado = matriz[0][1:len(matriz[0])-1]
-    print(encabezado) 
+    #print(encabezado) 
     respuesta = 0
-    print("VB " +str(variablesBasicas))
+    #print("VB " +str(variablesBasicas))
     posicionVariableNoBásica = -1
     i = 0
     while i < (len(encabezado)):
@@ -42,6 +42,38 @@ def determinarSoluciones(variablesBasicas,variables, matrizNumero):
             variables[i] = matrizNumero[pos+1][len(matrizNumero[0])-1]
             #print(variables)
     return variables
+def determinarDenerada(columnaPivote, columnaLD):
+    columnaResultado= []
+    arregloresultados= [] 
+    print("Columnas "+ str(columnaPivote)+" "+ str(columnaLD))
+    for i in range(len(columnaPivote)):
+        if(float(columnaPivote[i])):
+            print(str(columnaLD[i]) +" "+ str(columnaPivote[i]))
+            arregloresultados.append(float(columnaLD[i])/float(columnaPivote[i]))
+            x = float(columnaLD[i])/float(columnaPivote[i])
+            columnaResultado.append(x)
+        else:
+            arregloresultados.append(-9999999999999)
+            x = -99999999999
+            columnaResultado.append(x)
+    #print(columnaResultado)    
+    menor = columnaResultado[0]
+    
+
+    #print(menor)
+        
+    print(columnaResultado)
+    listaResultado = []
+    for i in range(len(columnaResultado)):
+        if menor == columnaResultado[i]:
+            #print(i)
+            listaResultado.append(i)
+
+    tamaño = len(listaResultado)       
+    #print("tamaño: " + str(tamaño))
+    #print(listaResultado)
+    return listaResultado,tamaño
+
 
 def crear_matriz(matrizDocumento):
     numero_varZ = int(matrizDocumento[0][2])
@@ -96,7 +128,6 @@ def crear_matriz(matrizDocumento):
     return matriz
 
 
-
 matriz = leerDocumento()
 matriz_np = np.array(matriz)
 elemento= matriz_np[1][1]
@@ -106,7 +137,7 @@ letrasEncabezado = matriz_np[0]
 encabezado = np.array(letrasEncabezado)
 
 filaPivote = []
-
+print("Matriz Inicial: \n"+ str(matriz_np))
 #No se está usando, pero debería
 #def determinarMenor(matriz):
     #Sacamos al menor de U
@@ -163,7 +194,10 @@ def determinar_solucion(matriz, iteracion):
         print(texto)
         estadoSolucionesMultiples = determinarMultiplesSoluciones(encabezado,listaVB,matriz)
         numeroColumna = estadoSolucionesMultiples[1]+1
-        
+        #NO BORRAR
+        #tamañoDegenerada = determinarDenerada(matriz[1:,x],matriz[1:,len(matriz[0])-1])[1]
+        #print(tamañoDegenerada)
+        #print("Esta es la matriz a trabajar: " + str(matriz) )
         if(estadoSolucionesMultiples[0] == 1 and estadoSolucionesMultiples[1]>-1):
             pivote = 0
             columnaVNB = matriz[:,estadoSolucionesMultiples[1]]
@@ -176,19 +210,19 @@ def determinar_solucion(matriz, iteracion):
                     print(columnaResultado[i] / columnaVNB[i])
                     pivote = columnaVNB[i]
                     numeroFila = i
-            print(pivote, numeroFila)
+            #print(pivote, numeroFila)
             for i in range(len(matriz[0])):
                 matriz[numeroFila][i] = matriz[numeroFila][i] / pivote
-            print(matriz)
+            #print(matriz)
             columnaPivoteNueva = matriz[:,estadoSolucionesMultiples[1]]#COLUMNA PIVOTE
-            print("Columna Pivote ACTUAL", str(columnaPivoteNueva))#CHECK
+            #print("Columna Pivote ACTUAL", str(columnaPivoteNueva))#CHECK
             filaPivoteNueva = matriz[numeroFila] 
-            print("NUEVAFILAPIVOTE"+str(filaPivoteNueva))#CHECK
+            #print("NUEVAFILAPIVOTE"+str(filaPivoteNueva))#CHECK
             filaAntigua = []
             m = 0
             nuevaFila = [] 
             listaVB[numeroFila-1]= VBNueva
-            print("YA CAMBIAMOS LA X: "+ str(listaVB))
+            #print("YA CAMBIAMOS LA X: "+ str(listaVB))
             while m < len(matriz):
                 if m != numeroFila:
                     n =0
@@ -209,7 +243,7 @@ def determinar_solucion(matriz, iteracion):
 
                 
                 m += 1
-            print("Nueva Matriz"+ str(matriz))
+            #print("Nueva Matriz"+ str(matriz))
 
             matrizFinal = []
 
@@ -217,7 +251,7 @@ def determinar_solucion(matriz, iteracion):
             columnaLetras = []
             columnaLetras.extend(listaVBU)
             columnaLetras.extend(listaVB)
-            print(columnaLetras)
+            #print(columnaLetras)
             for i in range(len(matriz)):
                 letra = np.array(columnaLetras[i])
                 numeros = np.array(matriz[i])
@@ -256,6 +290,24 @@ def determinar_solucion(matriz, iteracion):
         #Acá sacamos al pivote y los respectivos valores de la división de LD / columna pivote
         if iteracion == 0:  
             pivote = 10000
+            print("Columna Pivote: "+ str(matriz[1:,0]))
+            print("Columna LD: "+ str(matriz[1:,len(matriz[0])-1]))
+            tamañoDegenerada = determinarDenerada(matriz[1:,0],matriz[1:,len(matriz[0])-1])[1]
+            posicionVariablesDegeneradas = determinarDenerada(matriz[1:,0],matriz[1:,len(matriz[0])-1])[0]
+            print("ESTAMOS EN EL IF")
+            print(tamañoDegenerada)
+            #print("Esta es la matriz a trabajar: " + str(matriz) )
+            if tamañoDegenerada >1 :
+                print(posicionVariablesDegeneradas)
+                #print("Estamos trabajando")
+                i = 0
+                variablesDegeneradas = []
+                while i<len(posicionVariablesDegeneradas):
+                    variablesDegeneradas.append(matriz_np[posicionVariablesDegeneradas[i]+2,0])
+                    i+=1
+                print("Las variables degeneradas son: "+ ' '.join(variablesDegeneradas))
+                texto = "\nLas variables degeneradas de la matriz actual son: " + ' '.join(variablesDegeneradas)
+                escribir(texto)
             for i in range(len(matriz)):
                 if columnaMenor[i] > 0 and (pivote > (columnaResultado[i] / columnaMenor[i])) and ((columnaResultado[i] / columnaMenor[i]) > 0): 
                             pivote = columnaMenor[i]
@@ -351,7 +403,6 @@ def crearMatrizFinal(matrizConLetras,matrizConNumeros):
 
               
 determinar_solucion(matrizATrabajar, 0)
-
 
 
 
