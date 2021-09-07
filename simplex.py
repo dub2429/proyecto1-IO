@@ -368,7 +368,7 @@ def determinar_solucion(matriz, iteracion):
                     #print("\n\n La nuevaVB en matriz_np es: \n "+str(matriz_np))                
                 y+=1
             
-            texto = "\n\nPivote: " +str(pivote) +textoColumnaPivote+"\nCambiando Fila: Pivote" +"\nFila Pivote: " + str(filaAntigua) + "\nNueva Fila pivote: " + str(filaPivoteNueva) + "\nNueva Matriz:\n"+ crearMatrizFinal(matriz_np,matriz) +  "\n\n\n"
+            texto = "\n\nPivote: " +str(pivote) +textoColumnaPivote+"\nCambiando Fila: Pivote" +"\nFila Pivote: " + str(filaAntigua) + "\nNueva Fila pivote: " + str(filaPivoteNueva) + "\nNueva Matriz:\n"+crearMatrizFinal(matriz_np,matriz)[1:] +  "\n\n\n"
             escribir(texto)
             filaAntigua = []
             while m < len(matriz):
@@ -420,7 +420,8 @@ def crearMatrizFinal(matrizConLetras,matrizConNumeros):
         i += 2
     
     
-    textoFinal = str(matrizConLetras[0])+ "\n" + textoMatriz 
+    
+    textoFinal = str(encabezado)+ "\n" + textoMatriz 
     return textoFinal
 
 
