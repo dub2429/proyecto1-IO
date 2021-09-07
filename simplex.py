@@ -2,7 +2,10 @@ import sys
 import numpy as np
 
 def leerDocumento():
-    with open('multiple_sols.txt') as documento:
+    
+    document = sys.argv[1]
+    print(sys.argv[1])
+    with open(str(document)) as documento:
         contenido = documento.read()
     arreglo = contenido.split("\n")
     arregloMatriz = []
@@ -43,7 +46,7 @@ def determinarSoluciones(variablesBasicas,variables, matrizNumero):
             variables[i] = matrizNumero[pos+1][len(matrizNumero[0])-1]
             #print(variables)
     return variables
-def determinarDenerada(columnaPivote, columnaLD):
+def determinarDegenerada(columnaPivote, columnaLD):
     columnaResultado= []
     arregloresultados= [] 
     print("Columnas "+ str(columnaPivote)+" "+ str(columnaLD))
@@ -293,8 +296,8 @@ def determinar_solucion(matriz, iteracion):
                             numeroFila= i
             #print("Columna Pivote: "+ str(matriz[1:,1])) ##########ESTO SE TIENE QUE AGREGAR AL FINAL
             #print("Columna LD: "+ str(matriz[1:,len(matriz[0])-1]))
-            tamañoDegenerada = determinarDenerada(columnaMenor[1:],matriz[1:,len(matriz[0])-1])[1]
-            posicionVariablesDegeneradas = determinarDenerada(columnaMenor[1:],matriz[1:,len(matriz[0])-1])[0]
+            tamañoDegenerada = determinarDegenerada(columnaMenor[1:],matriz[1:,len(matriz[0])-1])[1]
+            posicionVariablesDegeneradas = determinarDegenerada(columnaMenor[1:],matriz[1:,len(matriz[0])-1])[0]
             print("ESTAMOS EN EL IF")
             print(tamañoDegenerada)
             #print("Esta es la matriz a trabajar: " + str(matriz) )
@@ -319,6 +322,25 @@ def determinar_solucion(matriz, iteracion):
                             filaPivoteVariables = matriz_np[i+1]
                             #print("\nFila Pivote Matriz_np: "+str(filaPivoteVariables))
                             numeroFila= i
+            
+            tamañoDegenerada = determinarDegenerada(columnaMenor[1:],matriz[1:,len(matriz[0])-1])[1]
+            posicionVariablesDegeneradas = determinarDegenerada(columnaMenor[1:],matriz[1:,len(matriz[0])-1])[0]
+            #print("Esta es la matriz a trabajar: " + str(matriz) )
+            #print(tamañoDegenerada)
+            #print("ESTAMOS EN EL IFasasasd")
+            if tamañoDegenerada >1 :
+                #print("ESTAMOS EN EL IFasasasd")
+                print(tamañoDegenerada)
+               # print(posicionVariablesDegeneradas)
+                #print("Estamos trabajando")
+                i = 0
+                variablesDegeneradas = []
+                while i<len(posicionVariablesDegeneradas):
+                    variablesDegeneradas.append(matriz_np[posicionVariablesDegeneradas[i]+2,0])
+                    i+=1
+                print("Las variables degeneradas son: "+ ' '.join(variablesDegeneradas))
+                texto = "\nLas variables degeneradas de la matriz actual son: " + ' '.join(variablesDegeneradas)
+                escribir(texto)
             
         y = 0
         z = 0
@@ -404,4 +426,6 @@ def crearMatrizFinal(matrizConLetras,matrizConNumeros):
 
               
 determinar_solucion(matrizATrabajar, 0)
+
+
 
