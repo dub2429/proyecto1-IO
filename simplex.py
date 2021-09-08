@@ -229,8 +229,16 @@ def determinar_solucion(matriz, iteracion):
                 textoMatriz += "   " + str(matrizFinal[i])+ "  " + filaNumeros + "\n"
                 i += 2
             
-            textoFinal = str(encabezado)+ "\n" + textoMatriz 
+            
+
+            
+            solucion= determinarSoluciones(columnaLetras[1:], encabezado[1:len(encabezado)-1], matriz) 
+            U = matrizFinal[1][len(matrizFinal[1])-1]
+            #print(U)
+            textoFinal = str(encabezado)+ "\n" + textoMatriz + "U: "+ str(U)+ "\nSolución:"+ str(solucion)
             print(textoFinal)
+            #texto = "\n\nMatriz Final: \n"+ matrizSolucion+ "\nU: "+ str(matriz[0][len(matriz[0])-1]) +"\nSolución: "+ str(solucion)
+            #print(texto)
             return escribir(textoFinal)
 
         return escribir(texto)    
@@ -367,6 +375,5 @@ def crearMatrizFinal(matrizConLetras,matrizConNumeros):
     return textoFinal
            
 determinar_solucion(matrizATrabajar, 0)
-
 
 
