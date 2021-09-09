@@ -2934,3 +2934,955 @@ Matriz Final:
 
 U: 42.0
 Solución: ['4.0' '6.0' '0' '0' '-12.0']
+Matriz inicial: 
+[['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+ ['U' '-3.0' '-5.0' '0' '0' '0' '0']
+ ['X3' '1.0' '0.0' '1' '0' '0' '4.0']
+ ['X4' '0.0' '2.0' '0' '1' '0' '12.0']
+ ['X5' '3.0' '2.0' '0' '0' '1' '12.0']]
+
+
+Las variables degeneradas de la matriz actual son: X3 X4
+
+Operación a realizar: 0.0/2.0
+
+Operación a realizar: 2.0/2.0
+
+Operación a realizar: 0.0/2.0
+
+Operación a realizar: 1.0/2.0
+
+Operación a realizar: 0.0/2.0
+
+Operación a realizar: 12.0/2.0
+
+
+Pivote: 2.0
+Columna Pivote: [-5.  0.  2.  2.]
+Cambiando Fila: Pivote
+Fila Pivote: [0.0, 2.0, 0.0, 1.0, 0.0, 12.0]
+Nueva Fila pivote: [0.0, 1.0, 0.0, 0.5, 0.0, 6.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  -3.0  -5.0  0.0  0.0  0.0  0.0  
+   X3  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X5  3.0  2.0  0.0  0.0  1.0  12.0  
+
+
+
+
+
+Operación a realizar: -3.0+5.0*0.0
+
+Operación a realizar: -5.0+5.0*1.0
+
+Operación a realizar: 0.0+5.0*0.0
+
+Operación a realizar: 0.0+5.0*0.5
+
+Operación a realizar: 0.0+5.0*0.0
+
+Operación a realizar: 0.0+5.0*6.0
+
+Cambiando Fila: 1
+Fila Antigua: [-3.0, -5.0, 0.0, 0.0, 0.0, 0.0]
+Nueva Fila: [-3.0, 0.0, 0.0, 2.5, 0.0, 30.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  -3.0  0.0  0.0  2.5  0.0  30.0  
+   X3  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X5  3.0  2.0  0.0  0.0  1.0  12.0  
+
+
+
+
+
+Operación a realizar: 1.0+-0.0*0.0
+
+Operación a realizar: 0.0+-0.0*1.0
+
+Operación a realizar: 1.0+-0.0*0.0
+
+Operación a realizar: 0.0+-0.0*0.5
+
+Operación a realizar: 0.0+-0.0*0.0
+
+Operación a realizar: 4.0+-0.0*6.0
+
+Cambiando Fila: 2
+Fila Antigua: [1.0, 0.0, 1.0, 0.0, 0.0, 4.0]
+Nueva Fila: [1.0, 0.0, 1.0, 0.0, 0.0, 4.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  -3.0  0.0  0.0  2.5  0.0  30.0  
+   X3  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X5  3.0  2.0  0.0  0.0  1.0  12.0  
+
+
+
+
+
+Operación a realizar: 3.0+-2.0*0.0
+
+Operación a realizar: 2.0+-2.0*1.0
+
+Operación a realizar: 0.0+-2.0*0.0
+
+Operación a realizar: 0.0+-2.0*0.5
+
+Operación a realizar: 1.0+-2.0*0.0
+
+Operación a realizar: 12.0+-2.0*6.0
+
+Cambiando Fila: 4
+Fila Antigua: [3.0, 2.0, 0.0, 0.0, 1.0, 12.0]
+Nueva Fila: [3.0, 0.0, 0.0, -1.0, 1.0, 0.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  -3.0  0.0  0.0  2.5  0.0  30.0  
+   X3  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X5  3.0  0.0  0.0  -1.0  1.0  0.0  
+
+
+
+
+
+Operación a realizar: 1.0/1.0
+
+Operación a realizar: 0.0/1.0
+
+Operación a realizar: 1.0/1.0
+
+Operación a realizar: 0.0/1.0
+
+Operación a realizar: 0.0/1.0
+
+Operación a realizar: 4.0/1.0
+
+
+Pivote: 1.0
+Columna Pivote: [-3.  1.  0.  3.]
+Cambiando Fila: Pivote
+Fila Pivote: [1.0, 0.0, 1.0, 0.0, 0.0, 4.0]
+Nueva Fila pivote: [1.0, 0.0, 1.0, 0.0, 0.0, 4.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  -3.0  0.0  0.0  2.5  0.0  30.0  
+   X1  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X5  3.0  0.0  0.0  -1.0  1.0  0.0  
+
+
+
+
+
+Operación a realizar: -3.0+3.0*1.0
+
+Operación a realizar: 0.0+3.0*0.0
+
+Operación a realizar: 0.0+3.0*1.0
+
+Operación a realizar: 2.5+3.0*0.0
+
+Operación a realizar: 0.0+3.0*0.0
+
+Operación a realizar: 30.0+3.0*4.0
+
+Cambiando Fila: 1
+Fila Antigua: [-3.0, 0.0, 0.0, 2.5, 0.0, 30.0]
+Nueva Fila: [0.0, 0.0, 3.0, 2.5, 0.0, 42.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  0.0  0.0  3.0  2.5  0.0  42.0  
+   X1  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X5  3.0  0.0  0.0  -1.0  1.0  0.0  
+
+
+
+
+
+Operación a realizar: 0.0+-0.0*1.0
+
+Operación a realizar: 1.0+-0.0*0.0
+
+Operación a realizar: 0.0+-0.0*1.0
+
+Operación a realizar: 0.5+-0.0*0.0
+
+Operación a realizar: 0.0+-0.0*0.0
+
+Operación a realizar: 6.0+-0.0*4.0
+
+Cambiando Fila: 3
+Fila Antigua: [0.0, 1.0, 0.0, 0.5, 0.0, 6.0]
+Nueva Fila: [0.0, 1.0, 0.0, 0.5, 0.0, 6.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  0.0  0.0  3.0  2.5  0.0  42.0  
+   X1  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X5  3.0  0.0  0.0  -1.0  1.0  0.0  
+
+
+
+
+
+Operación a realizar: 3.0+-3.0*1.0
+
+Operación a realizar: 0.0+-3.0*0.0
+
+Operación a realizar: 0.0+-3.0*1.0
+
+Operación a realizar: -1.0+-3.0*0.0
+
+Operación a realizar: 1.0+-3.0*0.0
+
+Operación a realizar: 0.0+-3.0*4.0
+
+Cambiando Fila: 4
+Fila Antigua: [3.0, 0.0, 0.0, -1.0, 1.0, 0.0]
+Nueva Fila: [0.0, 0.0, -3.0, -1.0, 1.0, -12.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  0.0  0.0  3.0  2.5  0.0  42.0  
+   X1  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X5  0.0  0.0  -3.0  -1.0  1.0  -12.0  
+
+
+
+
+
+
+Matriz Final: 
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  0.0  0.0  3.0  2.5  0.0  42.0  
+   X1  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X5  0.0  0.0  -3.0  -1.0  1.0  -12.0  
+
+U: 42.0
+Solución: ['4.0' '6.0' '0' '0' '-12.0']
+Matriz inicial: 
+[['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+ ['U' '-3.0' '-5.0' '0' '0' '0' '0']
+ ['X3' '1.0' '0.0' '1' '0' '0' '4.0']
+ ['X4' '0.0' '2.0' '0' '1' '0' '12.0']
+ ['X5' '3.0' '2.0' '0' '0' '1' '18.0']]
+
+
+Operación a realizar: 0.0/2.0
+
+Operación a realizar: 2.0/2.0
+
+Operación a realizar: 0.0/2.0
+
+Operación a realizar: 1.0/2.0
+
+Operación a realizar: 0.0/2.0
+
+Operación a realizar: 12.0/2.0
+
+
+Pivote: 2.0
+Columna Pivote: [-5.  0.  2.  2.]
+Cambiando Fila: Pivote
+Fila Pivote: [0.0, 2.0, 0.0, 1.0, 0.0, 12.0]
+Nueva Fila pivote: [0.0, 1.0, 0.0, 0.5, 0.0, 6.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  -3.0  -5.0  0.0  0.0  0.0  0.0  
+   X3  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X5  3.0  2.0  0.0  0.0  1.0  18.0  
+
+
+
+
+
+Operación a realizar: -3.0+5.0*0.0
+
+Operación a realizar: -5.0+5.0*1.0
+
+Operación a realizar: 0.0+5.0*0.0
+
+Operación a realizar: 0.0+5.0*0.5
+
+Operación a realizar: 0.0+5.0*0.0
+
+Operación a realizar: 0.0+5.0*6.0
+
+Cambiando Fila: 1
+Fila Antigua: [-3.0, -5.0, 0.0, 0.0, 0.0, 0.0]
+Nueva Fila: [-3.0, 0.0, 0.0, 2.5, 0.0, 30.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  -3.0  0.0  0.0  2.5  0.0  30.0  
+   X3  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X5  3.0  2.0  0.0  0.0  1.0  18.0  
+
+
+
+
+
+Operación a realizar: 1.0+-0.0*0.0
+
+Operación a realizar: 0.0+-0.0*1.0
+
+Operación a realizar: 1.0+-0.0*0.0
+
+Operación a realizar: 0.0+-0.0*0.5
+
+Operación a realizar: 0.0+-0.0*0.0
+
+Operación a realizar: 4.0+-0.0*6.0
+
+Cambiando Fila: 2
+Fila Antigua: [1.0, 0.0, 1.0, 0.0, 0.0, 4.0]
+Nueva Fila: [1.0, 0.0, 1.0, 0.0, 0.0, 4.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  -3.0  0.0  0.0  2.5  0.0  30.0  
+   X3  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X5  3.0  2.0  0.0  0.0  1.0  18.0  
+
+
+
+
+
+Operación a realizar: 3.0+-2.0*0.0
+
+Operación a realizar: 2.0+-2.0*1.0
+
+Operación a realizar: 0.0+-2.0*0.0
+
+Operación a realizar: 0.0+-2.0*0.5
+
+Operación a realizar: 1.0+-2.0*0.0
+
+Operación a realizar: 18.0+-2.0*6.0
+
+Cambiando Fila: 4
+Fila Antigua: [3.0, 2.0, 0.0, 0.0, 1.0, 18.0]
+Nueva Fila: [3.0, 0.0, 0.0, -1.0, 1.0, 6.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  -3.0  0.0  0.0  2.5  0.0  30.0  
+   X3  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X5  3.0  0.0  0.0  -1.0  1.0  6.0  
+
+
+
+
+
+Operación a realizar: 3.0/3.0
+
+Operación a realizar: 0.0/3.0
+
+Operación a realizar: 0.0/3.0
+
+Operación a realizar: -1.0/3.0
+
+Operación a realizar: 1.0/3.0
+
+Operación a realizar: 6.0/3.0
+
+
+Pivote: 3.0
+Columna Pivote: [-3.  1.  0.  3.]
+Cambiando Fila: Pivote
+Fila Pivote: [3.0, 0.0, 0.0, -1.0, 1.0, 6.0]
+Nueva Fila pivote: [1.0, 0.0, 0.0, -0.3333333333333333, 0.3333333333333333, 2.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  -3.0  0.0  0.0  2.5  0.0  30.0  
+   X3  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X1  1.0  0.0  0.0  -0.33  0.33  2.0  
+
+
+
+
+
+Operación a realizar: -3.0+3.0*1.0
+
+Operación a realizar: 0.0+3.0*0.0
+
+Operación a realizar: 0.0+3.0*0.0
+
+Operación a realizar: 2.5+3.0*-0.3333333333333333
+
+Operación a realizar: 0.0+3.0*0.3333333333333333
+
+Operación a realizar: 30.0+3.0*2.0
+
+Cambiando Fila: 1
+Fila Antigua: [-3.0, 0.0, 0.0, 2.5, 0.0, 30.0]
+Nueva Fila: [0.0, 0.0, 0.0, 1.5, 1.0, 36.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  0.0  0.0  0.0  1.5  1.0  36.0  
+   X3  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X1  1.0  0.0  0.0  -0.33  0.33  2.0  
+
+
+
+
+
+Operación a realizar: 1.0+-1.0*1.0
+
+Operación a realizar: 0.0+-1.0*0.0
+
+Operación a realizar: 1.0+-1.0*0.0
+
+Operación a realizar: 0.0+-1.0*-0.3333333333333333
+
+Operación a realizar: 0.0+-1.0*0.3333333333333333
+
+Operación a realizar: 4.0+-1.0*2.0
+
+Cambiando Fila: 2
+Fila Antigua: [1.0, 0.0, 1.0, 0.0, 0.0, 4.0]
+Nueva Fila: [0.0, 0.0, 1.0, 0.3333333333333333, -0.3333333333333333, 2.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  0.0  0.0  0.0  1.5  1.0  36.0  
+   X3  0.0  0.0  1.0  0.33  -0.33  2.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X1  1.0  0.0  0.0  -0.33  0.33  2.0  
+
+
+
+
+
+Operación a realizar: 0.0+-0.0*1.0
+
+Operación a realizar: 1.0+-0.0*0.0
+
+Operación a realizar: 0.0+-0.0*0.0
+
+Operación a realizar: 0.5+-0.0*-0.3333333333333333
+
+Operación a realizar: 0.0+-0.0*0.3333333333333333
+
+Operación a realizar: 6.0+-0.0*2.0
+
+Cambiando Fila: 3
+Fila Antigua: [0.0, 1.0, 0.0, 0.5, 0.0, 6.0]
+Nueva Fila: [0.0, 1.0, 0.0, 0.5, 0.0, 6.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  0.0  0.0  0.0  1.5  1.0  36.0  
+   X3  0.0  0.0  1.0  0.33  -0.33  2.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X1  1.0  0.0  0.0  -0.33  0.33  2.0  
+
+
+
+
+
+
+Matriz Final: 
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  0.0  0.0  0.0  1.5  1.0  36.0  
+   X3  0.0  0.0  1.0  0.33  -0.33  2.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X1  1.0  0.0  0.0  -0.33  0.33  2.0  
+
+U: 36.0
+Solución: ['2.0' '6.0' '2.0' '0' '0']
+Matriz inicial: 
+[['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+ ['U' '-3.0' '-5.0' '0' '0' '0' '0']
+ ['X3' '1.0' '0.0' '1' '0' '0' '4.0']
+ ['X4' '0.0' '2.0' '0' '1' '0' '12.0']
+ ['X5' '3.0' '2.0' '0' '0' '1' '18.0']]
+
+
+Operación a realizar: 0.0/2.0
+
+Operación a realizar: 2.0/2.0
+
+Operación a realizar: 0.0/2.0
+
+Operación a realizar: 1.0/2.0
+
+Operación a realizar: 0.0/2.0
+
+Operación a realizar: 12.0/2.0
+
+
+Pivote: 2.0
+Columna Pivote: [-5.  0.  2.  2.]
+Cambiando Fila: Pivote
+Fila Pivote: [0.0, 2.0, 0.0, 1.0, 0.0, 12.0]
+Nueva Fila pivote: [0.0, 1.0, 0.0, 0.5, 0.0, 6.0]
+Nueva Matriz:
+'VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  -3.0  -5.0  0.0  0.0  0.0  0.0  
+   X3  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X5  3.0  2.0  0.0  0.0  1.0  18.0  
+
+
+
+
+
+Operación a realizar: -3.0+5.0*0.0
+
+Operación a realizar: -5.0+5.0*1.0
+
+Operación a realizar: 0.0+5.0*0.0
+
+Operación a realizar: 0.0+5.0*0.5
+
+Operación a realizar: 0.0+5.0*0.0
+
+Operación a realizar: 0.0+5.0*6.0
+
+Cambiando Fila: 1
+Fila Antigua: [-3.0, -5.0, 0.0, 0.0, 0.0, 0.0]
+Nueva Fila: [-3.0, 0.0, 0.0, 2.5, 0.0, 30.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  -3.0  0.0  0.0  2.5  0.0  30.0  
+   X3  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X5  3.0  2.0  0.0  0.0  1.0  18.0  
+
+
+
+
+
+Operación a realizar: 1.0+-0.0*0.0
+
+Operación a realizar: 0.0+-0.0*1.0
+
+Operación a realizar: 1.0+-0.0*0.0
+
+Operación a realizar: 0.0+-0.0*0.5
+
+Operación a realizar: 0.0+-0.0*0.0
+
+Operación a realizar: 4.0+-0.0*6.0
+
+Cambiando Fila: 2
+Fila Antigua: [1.0, 0.0, 1.0, 0.0, 0.0, 4.0]
+Nueva Fila: [1.0, 0.0, 1.0, 0.0, 0.0, 4.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  -3.0  0.0  0.0  2.5  0.0  30.0  
+   X3  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X5  3.0  2.0  0.0  0.0  1.0  18.0  
+
+
+
+
+
+Operación a realizar: 3.0+-2.0*0.0
+
+Operación a realizar: 2.0+-2.0*1.0
+
+Operación a realizar: 0.0+-2.0*0.0
+
+Operación a realizar: 0.0+-2.0*0.5
+
+Operación a realizar: 1.0+-2.0*0.0
+
+Operación a realizar: 18.0+-2.0*6.0
+
+Cambiando Fila: 4
+Fila Antigua: [3.0, 2.0, 0.0, 0.0, 1.0, 18.0]
+Nueva Fila: [3.0, 0.0, 0.0, -1.0, 1.0, 6.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  -3.0  0.0  0.0  2.5  0.0  30.0  
+   X3  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X5  3.0  0.0  0.0  -1.0  1.0  6.0  
+
+
+
+
+
+Operación a realizar: 3.0/3.0
+
+Operación a realizar: 0.0/3.0
+
+Operación a realizar: 0.0/3.0
+
+Operación a realizar: -1.0/3.0
+
+Operación a realizar: 1.0/3.0
+
+Operación a realizar: 6.0/3.0
+
+
+Pivote: 3.0
+Columna Pivote: [-3.  1.  0.  3.]
+Cambiando Fila: Pivote
+Fila Pivote: [3.0, 0.0, 0.0, -1.0, 1.0, 6.0]
+Nueva Fila pivote: [1.0, 0.0, 0.0, -0.3333333333333333, 0.3333333333333333, 2.0]
+Nueva Matriz:
+'VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  -3.0  0.0  0.0  2.5  0.0  30.0  
+   X3  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X1  1.0  0.0  0.0  -0.33  0.33  2.0  
+
+
+
+
+
+Operación a realizar: -3.0+3.0*1.0
+
+Operación a realizar: 0.0+3.0*0.0
+
+Operación a realizar: 0.0+3.0*0.0
+
+Operación a realizar: 2.5+3.0*-0.3333333333333333
+
+Operación a realizar: 0.0+3.0*0.3333333333333333
+
+Operación a realizar: 30.0+3.0*2.0
+
+Cambiando Fila: 1
+Fila Antigua: [-3.0, 0.0, 0.0, 2.5, 0.0, 30.0]
+Nueva Fila: [0.0, 0.0, 0.0, 1.5, 1.0, 36.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  0.0  0.0  0.0  1.5  1.0  36.0  
+   X3  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X1  1.0  0.0  0.0  -0.33  0.33  2.0  
+
+
+
+
+
+Operación a realizar: 1.0+-1.0*1.0
+
+Operación a realizar: 0.0+-1.0*0.0
+
+Operación a realizar: 1.0+-1.0*0.0
+
+Operación a realizar: 0.0+-1.0*-0.3333333333333333
+
+Operación a realizar: 0.0+-1.0*0.3333333333333333
+
+Operación a realizar: 4.0+-1.0*2.0
+
+Cambiando Fila: 2
+Fila Antigua: [1.0, 0.0, 1.0, 0.0, 0.0, 4.0]
+Nueva Fila: [0.0, 0.0, 1.0, 0.3333333333333333, -0.3333333333333333, 2.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  0.0  0.0  0.0  1.5  1.0  36.0  
+   X3  0.0  0.0  1.0  0.33  -0.33  2.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X1  1.0  0.0  0.0  -0.33  0.33  2.0  
+
+
+
+
+
+Operación a realizar: 0.0+-0.0*1.0
+
+Operación a realizar: 1.0+-0.0*0.0
+
+Operación a realizar: 0.0+-0.0*0.0
+
+Operación a realizar: 0.5+-0.0*-0.3333333333333333
+
+Operación a realizar: 0.0+-0.0*0.3333333333333333
+
+Operación a realizar: 6.0+-0.0*2.0
+
+Cambiando Fila: 3
+Fila Antigua: [0.0, 1.0, 0.0, 0.5, 0.0, 6.0]
+Nueva Fila: [0.0, 1.0, 0.0, 0.5, 0.0, 6.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  0.0  0.0  0.0  1.5  1.0  36.0  
+   X3  0.0  0.0  1.0  0.33  -0.33  2.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X1  1.0  0.0  0.0  -0.33  0.33  2.0  
+
+
+
+
+
+
+Matriz Final: 
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  0.0  0.0  0.0  1.5  1.0  36.0  
+   X3  0.0  0.0  1.0  0.33  -0.33  2.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X1  1.0  0.0  0.0  -0.33  0.33  2.0  
+
+U: 36.0
+Solución: ['2.0' '6.0' '2.0' '0' '0']
+
+
+Matriz Final: 
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  0.0  0.0  0.0  1.5  1.0  36.0  
+   X3  0.0  0.0  1.0  0.33  -0.33  2.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X1  1.0  0.0  0.0  -0.33  0.33  2.0  
+
+U: 36.0
+Solución: ['2.0' '6.0' '2.0' '0' '0']
+Matriz inicial: 
+[['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+ ['U' '-3.0' '-5.0' '0' '0' '0' '0']
+ ['X3' '1.0' '0.0' '1' '0' '0' '4.0']
+ ['X4' '0.0' '2.0' '0' '1' '0' '12.0']
+ ['X5' '3.0' '2.0' '0' '0' '1' '18.0']]
+
+
+Operación a realizar: 0.0/2.0
+
+Operación a realizar: 2.0/2.0
+
+Operación a realizar: 0.0/2.0
+
+Operación a realizar: 1.0/2.0
+
+Operación a realizar: 0.0/2.0
+
+Operación a realizar: 12.0/2.0
+
+
+Pivote: 2.0
+Columna Pivote: [-5.  0.  2.  2.]
+Cambiando Fila: Pivote
+Fila Pivote: [0.0, 2.0, 0.0, 1.0, 0.0, 12.0]
+Nueva Fila pivote: [0.0, 1.0, 0.0, 0.5, 0.0, 6.0]
+Nueva Matriz:
+'VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  -3.0  -5.0  0.0  0.0  0.0  0.0  
+   X3  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X5  3.0  2.0  0.0  0.0  1.0  18.0  
+
+
+
+
+
+Operación a realizar: -3.0+5.0*0.0
+
+Operación a realizar: -5.0+5.0*1.0
+
+Operación a realizar: 0.0+5.0*0.0
+
+Operación a realizar: 0.0+5.0*0.5
+
+Operación a realizar: 0.0+5.0*0.0
+
+Operación a realizar: 0.0+5.0*6.0
+
+Cambiando Fila: 1
+Fila Antigua: [-3.0, -5.0, 0.0, 0.0, 0.0, 0.0]
+Nueva Fila: [-3.0, 0.0, 0.0, 2.5, 0.0, 30.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  -3.0  0.0  0.0  2.5  0.0  30.0  
+   X3  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X5  3.0  2.0  0.0  0.0  1.0  18.0  
+
+
+
+
+
+Operación a realizar: 1.0+-0.0*0.0
+
+Operación a realizar: 0.0+-0.0*1.0
+
+Operación a realizar: 1.0+-0.0*0.0
+
+Operación a realizar: 0.0+-0.0*0.5
+
+Operación a realizar: 0.0+-0.0*0.0
+
+Operación a realizar: 4.0+-0.0*6.0
+
+Cambiando Fila: 2
+Fila Antigua: [1.0, 0.0, 1.0, 0.0, 0.0, 4.0]
+Nueva Fila: [1.0, 0.0, 1.0, 0.0, 0.0, 4.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  -3.0  0.0  0.0  2.5  0.0  30.0  
+   X3  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X5  3.0  2.0  0.0  0.0  1.0  18.0  
+
+
+
+
+
+Operación a realizar: 3.0+-2.0*0.0
+
+Operación a realizar: 2.0+-2.0*1.0
+
+Operación a realizar: 0.0+-2.0*0.0
+
+Operación a realizar: 0.0+-2.0*0.5
+
+Operación a realizar: 1.0+-2.0*0.0
+
+Operación a realizar: 18.0+-2.0*6.0
+
+Cambiando Fila: 4
+Fila Antigua: [3.0, 2.0, 0.0, 0.0, 1.0, 18.0]
+Nueva Fila: [3.0, 0.0, 0.0, -1.0, 1.0, 6.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  -3.0  0.0  0.0  2.5  0.0  30.0  
+   X3  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X5  3.0  0.0  0.0  -1.0  1.0  6.0  
+
+
+
+
+
+Operación a realizar: 3.0/3.0
+
+Operación a realizar: 0.0/3.0
+
+Operación a realizar: 0.0/3.0
+
+Operación a realizar: -1.0/3.0
+
+Operación a realizar: 1.0/3.0
+
+Operación a realizar: 6.0/3.0
+
+
+Pivote: 3.0
+Columna Pivote: [-3.  1.  0.  3.]
+Cambiando Fila: Pivote
+Fila Pivote: [3.0, 0.0, 0.0, -1.0, 1.0, 6.0]
+Nueva Fila pivote: [1.0, 0.0, 0.0, -0.3333333333333333, 0.3333333333333333, 2.0]
+Nueva Matriz:
+'VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  -3.0  0.0  0.0  2.5  0.0  30.0  
+   X3  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X1  1.0  0.0  0.0  -0.33  0.33  2.0  
+
+
+
+
+
+Operación a realizar: -3.0+3.0*1.0
+
+Operación a realizar: 0.0+3.0*0.0
+
+Operación a realizar: 0.0+3.0*0.0
+
+Operación a realizar: 2.5+3.0*-0.3333333333333333
+
+Operación a realizar: 0.0+3.0*0.3333333333333333
+
+Operación a realizar: 30.0+3.0*2.0
+
+Cambiando Fila: 1
+Fila Antigua: [-3.0, 0.0, 0.0, 2.5, 0.0, 30.0]
+Nueva Fila: [0.0, 0.0, 0.0, 1.5, 1.0, 36.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  0.0  0.0  0.0  1.5  1.0  36.0  
+   X3  1.0  0.0  1.0  0.0  0.0  4.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X1  1.0  0.0  0.0  -0.33  0.33  2.0  
+
+
+
+
+
+Operación a realizar: 1.0+-1.0*1.0
+
+Operación a realizar: 0.0+-1.0*0.0
+
+Operación a realizar: 1.0+-1.0*0.0
+
+Operación a realizar: 0.0+-1.0*-0.3333333333333333
+
+Operación a realizar: 0.0+-1.0*0.3333333333333333
+
+Operación a realizar: 4.0+-1.0*2.0
+
+Cambiando Fila: 2
+Fila Antigua: [1.0, 0.0, 1.0, 0.0, 0.0, 4.0]
+Nueva Fila: [0.0, 0.0, 1.0, 0.3333333333333333, -0.3333333333333333, 2.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  0.0  0.0  0.0  1.5  1.0  36.0  
+   X3  0.0  0.0  1.0  0.33  -0.33  2.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X1  1.0  0.0  0.0  -0.33  0.33  2.0  
+
+
+
+
+
+Operación a realizar: 0.0+-0.0*1.0
+
+Operación a realizar: 1.0+-0.0*0.0
+
+Operación a realizar: 0.0+-0.0*0.0
+
+Operación a realizar: 0.5+-0.0*-0.3333333333333333
+
+Operación a realizar: 0.0+-0.0*0.3333333333333333
+
+Operación a realizar: 6.0+-0.0*2.0
+
+Cambiando Fila: 3
+Fila Antigua: [0.0, 1.0, 0.0, 0.5, 0.0, 6.0]
+Nueva Fila: [0.0, 1.0, 0.0, 0.5, 0.0, 6.0]
+Nueva Matriz:
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  0.0  0.0  0.0  1.5  1.0  36.0  
+   X3  0.0  0.0  1.0  0.33  -0.33  2.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X1  1.0  0.0  0.0  -0.33  0.33  2.0  
+
+
+
+
+
+
+Matriz Final: 
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  0.0  0.0  0.0  1.5  1.0  36.0  
+   X3  0.0  0.0  1.0  0.33  -0.33  2.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X1  1.0  0.0  0.0  -0.33  0.33  2.0  
+
+U: 36.0
+Solución: ['2.0' '6.0' '2.0' '0' '0']
+
+
+Matriz Final: 
+['VB' 'X1' 'X2' 'X3' 'X4' 'X5' 'LD']
+   U  0.0  0.0  0.0  1.5  1.0  36.0  
+   X3  0.0  0.0  1.0  0.33  -0.33  2.0  
+   X2  0.0  1.0  0.0  0.5  0.0  6.0  
+   X1  1.0  0.0  0.0  -0.33  0.33  2.0  
+
+U: 36.0
+Solución: ['2.0' '6.0' '2.0' '0' '0']

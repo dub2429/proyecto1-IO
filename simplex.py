@@ -1,11 +1,13 @@
 import sys
 import numpy as np
+from collections import defaultdict
+
 
 def leerDocumento():
     
-    document = sys.argv[1]
-    print(sys.argv[1])
-    with open(str("multiple_sols.txt")) as documento:
+    #document = sys.argv[1]
+    #print(sys.argv[1])
+    with open("archivo1.txt") as documento:
         contenido = documento.read()
     arreglo = contenido.split("\n")
     arregloMatriz = []
@@ -19,15 +21,17 @@ def determinarMultiplesSoluciones(encabezado,variablesBasicas,matrizNumeros):
     respuesta = 0
     posicionVariableNoBásica = -1
     i = 0
+    textoSolucion = ""
     while i < (len(encabezado)):
         if encabezado[i] not in variablesBasicas:
             if matrizNumeros[0][i] == 0:
                 posicionVariableNoBásica = i
-                print("Hay solución múltiple por variable", encabezado[i], "en la posicion ", str(i+1), "de la fila U, ya que es variable No Básica y el valor es 0")
+                textoSolucion = "Hay solución múltiple por variable "+ encabezado[i]+ " en la posicion "+ str(i+1)+ " de la fila U, ya que es variable No Básica y el valor es 0"
+                print(textoSolucion)
                 i = len(encabezado)+1
                 respuesta = 1
         i += 1
-        return(respuesta, posicionVariableNoBásica, "HAY SOLUCIÓN MULTIPLE")  
+        return(respuesta, posicionVariableNoBásica, textoSolucion)  
 
 
 def determinarSoluciones(variablesBasicas,variables, matrizNumero):
@@ -46,17 +50,25 @@ def determinarDegenerada(columnaPivote, columnaLD):
             arregloresultados.append(float(columnaLD[i])/float(columnaPivote[i]))
             x = float(columnaLD[i])/float(columnaPivote[i])
             columnaResultado.append(x)
-        
-    menor = columnaResultado[0]
 
-        
-    listaResultado = []
-    for i in range(len(columnaResultado)):
-        if menor == columnaResultado[i]:
-            listaResultado.append(i)
+    llaves = defaultdict(list);
+    lista = []
+    # Recorre todos los elementos de la columnaResultado:
+    for llave, valor in enumerate(columnaResultado):
 
-    tamaño = len(listaResultado)       
-    return listaResultado,tamaño
+        # Adiciona el indeice de índices:
+        llaves[valor].append(llave)
+
+    for valor in llaves:
+        if len(llaves[valor]) > 1:
+            lista = llaves[valor]
+    print(lista)
+        
+    
+
+
+    tamaño = len(lista)       
+    return lista,tamaño
 
 
 def crear_matriz(matrizDocumento):
@@ -109,7 +121,6 @@ def crear_matriz(matrizDocumento):
                         variablesNoBasicasIngresar += 1
                     
     return matriz
-
 
 matriz = leerDocumento()
 matriz_np = np.array(matriz)
@@ -171,11 +182,15 @@ def determinar_solucion(matriz, iteracion):
         variables = matriz_np[0][1:len(matriz_np[0])-1]
         solucion= determinarSoluciones(listaVB, variables, matriz) 
         texto = "\n\nMatriz Final: \n"+ matrizSolucion+ "\nU: "+ str(matriz[0][len(matriz[0])-1]) +"\nSolución: "+ str(solucion)
+        escribir(texto)
         print(texto)
         estadoSolucionesMultiples = determinarMultiplesSoluciones(encabezado,listaVB,matriz)
         numeroColumna = estadoSolucionesMultiples[1]+1
+        textoSolucionMultiple = estadoSolucionesMultiples[2]
 
         if(estadoSolucionesMultiples[0] == 1 and estadoSolucionesMultiples[1]>-1):
+            texto = "\n\n\n\n" + textoSolucionMultiple
+            escribir(texto)
             pivote = 0
             columnaVNB = matriz[:,estadoSolucionesMultiples[1]]
             columnaResultado = matriz[:,(len(matriz[0]))-1]
@@ -185,13 +200,25 @@ def determinar_solucion(matriz, iteracion):
                 if columnaVNB[i] > 0 and (pivote < (columnaResultado[i] / columnaVNB[i])) and ((columnaResultado[i] / columnaVNB[i]) > 0):
                     pivote = columnaVNB[i]
                     numeroFila = i
+            filaAntigua = []
+            escribir("Columna Pivote: "+str(matriz[:,estadoSolucionesMultiples[1]])+ "\nNúmero Pivote: " + str(pivote))
+            
             for i in range(len(matriz[0])):
+                filaAntigua.append(matriz[numeroFila][i])
+                texto = "\nOperación a realizar: " + str(matriz[numeroFila][i]) + "/" +str(pivote)+ "\n"
+                escribir(texto)
                 matriz[numeroFila][i] = matriz[numeroFila][i] / pivote
+            escribir("Fila Pivote: "+ str(filaAntigua))
             columnaPivoteNueva = matriz[:,estadoSolucionesMultiples[1]]#COLUMNA PIVOTE
             filaPivoteNueva = matriz[numeroFila] 
+            escribir("Fila nueva del pivote:"+str(filaPivoteNueva)+"\n")
             filaAntigua = []
-            m = 0
+            m = 1
             nuevaFila = [] 
+            matriz_np[0]= letrasEncabezado
+            matriz_np[numeroFila+1,0] = VBNueva
+            solucionPivote= crearMatrizFinal(matriz_np,matriz)
+            escribir("Nueva matriz: \n"+ solucionPivote)
             listaVB[numeroFila-1]= VBNueva
             while m < len(matriz):
                 if m != numeroFila:
@@ -229,16 +256,14 @@ def determinar_solucion(matriz, iteracion):
                 textoMatriz += "   " + str(matrizFinal[i])+ "  " + filaNumeros + "\n"
                 i += 2
             
-            
-
-            
+            escribir("\nResultado de solución extra:")
+            print("Resultado de solución extra:\n")
+            print(encabezado)
+            escribir(encabezado)
             solucion= determinarSoluciones(columnaLetras[1:], encabezado[1:len(encabezado)-1], matriz) 
             U = matrizFinal[1][len(matrizFinal[1])-1]
-            #print(U)
-            textoFinal = str(encabezado)+ "\n" + textoMatriz + "U: "+ str(U)+ "\nSolución:"+ str(solucion)
+            textoFinal =  textoMatriz + "U: "+ str(U)+ "\nSolución:"+ str(solucion)
             print(textoFinal)
-            #texto = "\n\nMatriz Final: \n"+ matrizSolucion+ "\nU: "+ str(matriz[0][len(matriz[0])-1]) +"\nSolución: "+ str(solucion)
-            #print(texto)
             return escribir(textoFinal)
 
         return escribir(texto)    
@@ -375,5 +400,3 @@ def crearMatrizFinal(matrizConLetras,matrizConNumeros):
     return textoFinal
            
 determinar_solucion(matrizATrabajar, 0)
-
-
