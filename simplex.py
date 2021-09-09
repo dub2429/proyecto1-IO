@@ -7,12 +7,13 @@ import sys
 import numpy as np
 from collections import defaultdict
 
+documento_entrada = sys.argv[1]
+documento_salida = documento_entrada.split(".")
 
 def leerDocumento():
     #S: Llama a la función donde se crea la matriz iniciar
-    document = sys.argv[1]
-    #print(sys.argv[1])
-    with open(str(document)) as documento:
+    
+    with open(str(documento_entrada)) as documento:
         contenido = documento.read()
     arreglo = contenido.split("\n")
     arregloMatriz = []
@@ -157,7 +158,8 @@ def cambiar_fila(matriz,fila, numeroFilaPivote):
 def escribir(dato):
     #E: Información a escribir en el documento de salida 
     #S: La creación del documento si no lo está y si está escribe sobre el mismo
-    archivo = open(str(document)+"_Solucion",'a')
+    nombre_archivo = documento_salida[0]+"_solution.txt"
+    archivo = open(nombre_archivo,'a')
     nuevaLinea= str(dato) + "\n"
     archivo.write(nuevaLinea)
 texto = "Matriz inicial: " + "\n" + str(matriz_np) + "\n"  
