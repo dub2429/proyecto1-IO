@@ -196,3 +196,72 @@ def determinar_solucion(matriz, iteracion):
 determinar_solucion(matrix, 0)
 
 
+<<<<<<< Updated upstream
+=======
+    
+    for i in range(len(matrizConNumeros)):
+        letra = np.array(columnaLetras[i])
+        numeros = np.array(matrizConNumeros[i])
+        matrizFinal.append(letra)
+        matrizFinal.append(numeros)
+    
+    textoMatriz= ""
+    i = 0  
+    while i < (len(matrizFinal)):
+        filaNumeros = ""
+        for j in range (len(matrizFinal[i+1])):
+            filaNumeros += str(round(matrizFinal[i+1][j],2)) + "  "
+        textoMatriz += "   " + str(matrizFinal[i])+ "  " + filaNumeros + "\n"
+        i += 2  
+    textoFinal = str(encabezado)+ "\n" + textoMatriz 
+    return textoFinal
+           
+determinar_solucion(matrizATrabajar, 0)
+
+
+
+
+# Esta función se usa para encontrar el número 1 en la misma columna de M para hacer M 0.
+
+def encontrar_fila(column):
+    i = 0
+    while(i<len(matriz)):
+        if matriz[i][column] == 1:
+            break
+        i+=1
+    return i 
+
+
+# Esta función se utiliza para mostrar las operaciones para hacer Ms 0.
+
+# method = arreglo[0][0]
+optimization = arreglo[0][1]
+bVariables = arreglo[0][2]
+matriz = []
+dVariables = 0
+aVariables = 0 
+
+def make_m_zero():
+      if optimization == "max":
+          j = 1
+          while(j<len(matriz[1])):
+              matriz[1][j]*=-1
+              j+=1
+      texto =(""+"\n")
+      print("")
+      countA = bVariables+dVariables+1
+      while(countA<len(matriz[0])-1):
+            row = encontrar_fila(countA)
+            multiplier = -matriz[1][countA]
+            i = 1
+            while(i < len(matriz[0])):
+                matriz[1][i] = matriz[row][i] * multiplier + matriz[1][i]
+                i = i + 1
+            texto =(""+"\n")
+            texto =(str(multiplier) + "f" + str(row) + " + f" + str(0) + " -> f" + str(0)+"\n")
+            print("")
+            texto =(str(multiplier) + "f" + str(row) + " + f" + str(0) + " -> f" + str(0))
+            countA+=1
+            
+      determinar_solucion()
+>>>>>>> Stashed changes
