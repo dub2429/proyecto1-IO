@@ -427,11 +427,11 @@ a=inicializaSimplex(A,z,n,m,b,h,2)
 print(a)
 
 """
-A=Matriz de restricciones
-z=vector de la fucion objetivo
-n=numero de variables
-m=numero de restricciones
-b=vector de Desigualdades de las restricciones
-h=vector igualdad desigualdad
+A= restricciones
+z función objetivo
+n= número de variables
+m= número de restricciones
+b= lado derecho
+h= símbolos
 1 si es maximizar y 2 si es minimizar
 """
