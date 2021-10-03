@@ -19,8 +19,7 @@ def abrir_archivo(file_name):
         Lineas[i] = [int(e) if e.isdigit()
                      else e for e in Lineas[i].split(',')]
         i += 1
-    #return Lineas
-    print('Lineas> ', Lineas)
+    return Lineas
 
 
 # Variables a utilizar para determinar si es degenerada o si existe una solucion extra
@@ -406,7 +405,11 @@ def conv_m_ceros():
 # de la fase para comprobar si puede continuar o no a la segunda fase.
 
 
+
+############################
+
 def PrimeraFase():
+    print("aaaaaaaaaaaaa")
     global dVariables
     conv_r_ceros()
     j = 1
@@ -419,6 +422,7 @@ def PrimeraFase():
     else:
         out.write("No es posible solucionar este problema.")
         print("No es posible solucionar este problema.")
+
 
 
 # Esta función se utiliza para encontrar las variables artificiales y agrega las filas en las que se encuentran
@@ -625,8 +629,9 @@ elif metodo == 1:
 elif metodo == 2:
     crearMatriz()
     PrimeraFase()
-# elif metodo ==3:
-    problema_dual(Lineas)
+elif metodo ==3:
+    matriz = problema_dual(Lineas) #trans
+    PrimeraFase()
 
 """
 A= restricciones
