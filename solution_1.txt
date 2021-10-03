@@ -1,0 +1,45 @@
+
+VB      x1      x2      x3      s1      s2      r1      r2      LD      
+U       2.0     3.0     1.0     0       0       1000    1000    0       
+r1      1.0     4.0     2.0     -1      0       1       0       8.0     
+r2      3.0     2.0     0.0     0       -1      0       1       6.0     
+
+
+Matriz Inicial
+VB      x1      x2      x3      s1      s2      r1      r2      LD      
+U       -3998.  -5997.  -1999.  1000    1000    0       0       -14000  
+r1      1.0     4.0     2.0     -1      0       1       0       8.0     
+r2      3.0     2.0     0.0     0       -1      0       1       6.0     
+
+Variable básica que entra: x2
+Variable básica que sale: r1
+Número Pivote: 4.0
+
+VB      x1      x2      x3      s1      s2      r1      r2      LD      
+U       -2498.  0.0     999.5   -499.2  1000.0  1499.2  0.0     -2006.  
+x2      0.25    1.0     0.5     -0.25   0.0     0.25    0.0     2.0     
+r2      2.5     0.0     -1.0    0.5     -1.0    -0.5    1.0     2.0     
+
+Variable básica que entra: x1
+Variable básica que sale: r2
+Número Pivote: 2.5
+
+VB      x1      x2      x3      s1      s2      r1      r2      LD      
+U       0.0     0.0     0.0     0.5     0.5     999.5   999.5   -7.0    
+x2      0.0     1.0     0.6     -0.3    0.1     0.3     -0.1    1.8     
+x1      1.0     0.0     -0.4    0.2     -0.4    -0.2    0.4     0.8     
+
+
+Solución
+
+Valor de las variables:
+U = 7.0
+r1 = 0
+r2 = 0
+s1 = 0
+s2 = 0
+x1 = 0.8
+x2 = 1.8
+x3 = 0
+Valor óptimo de U es: 
+U = 7.0
