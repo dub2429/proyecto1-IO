@@ -1,0 +1,27 @@
+
+Matriz Inicial
+VB      x1      x2      s1      s2      LD      
+U       -2.0    -4.0    0       0       0       
+s1      1.0     2.0     1       0       5.0     
+s2      1.0     1.0     0       1       4.0     
+
+Variable básica que entra: x2
+Variable básica que sale: s1
+Número Pivote: 2.0
+
+VB      x1      x2      s1      s2      LD      
+U       0.0     0.0     2.0     0.0     10.0    
+x2      0.5     1.0     0.5     0.0     2.5     
+s2      0.5     0.0     -0.5    1.0     1.5     
+
+
+Solución Multiple
+
+Valor de las variables:
+U = 10.0
+s1 = 0
+s2 = 1.5
+x1 = 0
+x2 = 2.5
+Valor óptimo de U es: 
+U = 10.0

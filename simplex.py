@@ -1,267 +1,516 @@
+# PROYECTO 1 del curso de Investigación de operaciones
+# Instituto Tecnológico de Costa Rica
+# Estudiantes: Erick Blanco, David Umaña, Fabián Vives
+# Profesor: Carlos gamboa
+# Método SIMPLEX
+
+import sys
 import numpy as np
+from collections import defaultdict
 
 
-import numpy as np
+# Función que abre el archivo para obtener la información de las matrices.
 
-def leerDocumento():
-    with open('archivo1.txt') as documento:
-        contenido = documento.read()
-        #print(contenido.rstrip())
-    arreglo = contenido.split("\n")
-    arregloMatriz = []
-    for i in range(len(arreglo)):
-        arregloMatriz.append(arreglo[i].split(","))
-    print(arregloMatriz)
-    return crear_matriz(arregloMatriz)
-
-i = 0
-def crearMatriz(contenido):
-    print(contenido)
+def abrir_archivo(file_name):
+    archivo = open(file_name, 'r')
+    Lineas = archivo.readlines()
+    i = 0
+    while(i < len(Lineas)):
+        Lineas[i] = [int(e) if e.isdigit()
+                     else e for e in Lineas[i].split(',')]
+        i += 1
+    return Lineas
 
 
+# Variables a utilizar para determinar si es degenerada o si existe una solucion extra
+extra_sols = False
+flagDeg = False
+
+# -h es un parámetro de ingreso opcional
+# python solver.py [-h] archivo.txt
+
+if sys.argv[1] == "-h":
+    print("El archivo de código fuente a ejecutarse debe llamarse simplex.py \n")
+    print("Para ejecutarlo:python simplex.py [-h] (archivo).txt")
+    Lineas = abrir_archivo(sys.argv[2])
+    out = open("out_"+sys.argv[2], 'w')
+else:
+    Lineas = abrir_archivo(sys.argv[1])
+    out = open("out_"+sys.argv[1], 'w')
+
+metodo = Lineas[0][0]
+optimizacion = Lineas[0][1]
+aVariables = 0
+dVariables = 0
+bVariables = Lineas[0][2]
+restricciones = int(Lineas[0][3])
+matriz = []
+degenerada = 0
+divisiones = []
 
 
+# Función que devuelve una lista de ceros para agregar a la matriz
 
-def crear_matriz(matrizDocumento):
-    numero_varZ = int(matrizDocumento[0][2])
-    numero_inec = int(matrizDocumento[0][3])
-    num_filas = numero_inec + 2
-    num_colum = numero_inec + numero_varZ + 2
-    matriz = []
-    variablesBasicas = numero_inec+numero_varZ
-    variablesNoBasicas = numero_varZ
-    variablesNoBasicasIngresar = numero_varZ
+def listaceros(n):
+    return [0] * n
 
-    print("#Variables Básicas: "+ str(variablesBasicas-variablesNoBasicas)+ "   #Variables No Básicas: " + str(variablesNoBasicas))
-    for i in range(num_filas):
-        matriz.append([])
-        for j in range(num_colum):
-                matriz[i].append(0)
-    #print(matriz)
-    
-    for i in range(num_filas):
-        if i == 0:
-            for j in range(num_colum):
-                if(j==0):
-                    matriz[i][j] = "VB"
-                elif(j==(num_colum-1)):
-                    matriz[i][j] = "LD"
-                else:
-                    matriz[i][j] = "X"+str(j)
-        elif i == 1:
-            elemento = 0
-            for j in range(num_colum):
-                if j == 0:
-                    matriz[i][j] = "U"
-                elif elemento<len(matrizDocumento[i]) and matrizDocumento[i][elemento]:
-                     matriz[i][j] = -float(matrizDocumento[i][elemento])
-                     elemento += 1
-                
+# Esta función hace el trabajo de agregar las variables adicionales
+
+def contar_variables():
+    global dVariables, aVariables, bVariables
+    i = 2
+    for i in range(2, len(Lineas)):
+        if Lineas[i][bVariables] == "<=":
+            dVariables += 1
+        elif Lineas[i][bVariables] == ">=":
+            dVariables += 1
+            aVariables += 1
         else:
-            elemento = 0
-            for j in range(num_colum):
-                if j == 0:
-                    matriz[i][j] = "X"+str(i+1) #Cambiar y meter las variables básicas del arreglo
-                elif elemento<len(matrizDocumento[i]) and matrizDocumento[i][elemento] != "<=" :
-                     matriz[i][j] = float(matrizDocumento[i][elemento])
-                     elemento += 1
-                #elif matrizDocumento[i][j] == "<=":
-                    #elemento += 1
-                if j == variablesNoBasicasIngresar+1:
-                    matriz[i][j] = 1
-                    
-                else:
-                    if j == len(matriz[i])-1:
-                        matriz[i][j] = float(matrizDocumento[i][len(matrizDocumento[i])-1])
-                        variablesNoBasicasIngresar += 1
-                    
+            aVariables += 1
 
-    print(matriz)
-    return matriz
+# Esta función se usa para agregar las letras que representan los variables en la matriz, es principalmente destinado a la estética.
 
 
+def prep_matriz():
+    global dVariables, bVariables, aVariables
+    temp = ["VB"]
+    contar_variables()
+    lenght = dVariables+aVariables+bVariables
+    count = 1
+    while(count < lenght+1):
+        if count > (bVariables+dVariables):
+            temp.append("r"+str(count-(dVariables+bVariables)))
 
-matriz = leerDocumento()
-matriz_np = np.array(matriz)
-
-#np.array([[15,26,2,17,22],[13,8,9,3,4]])
-elemento= matriz_np[1][1]
-print(float(elemento)*5)
-
-matrix = matriz_np[1:, 1:]
-matrix=np.float64(matrix)
-
-
-filaPivote = []
-
-def cambiar_fila(matriz,fila, numeroFilaPivote):
-    for i in range(len(matriz)):
-        if(i == numeroFilaPivote):
-            j = 0
-            while j < len(fila):
-                matriz[i][j]= fila[j]
-                j += 1
-    #texto = "\n\n\n\n\n\n\nNueva Matriz\n" + str(matriz) 
-    #escribir(texto)
-
-def escribir(dato):
-    archivo = open('datos.txt','a')
-    nuevaLinea= str(dato) + "\n"
-    archivo.write(nuevaLinea)
-texto = "Matriz inicial: " + "\n" + str(matriz_np) + "\n\n\n"  
-escribir(texto)
-
-def determinar_solucion(matriz, iteracion):
-
-    menorActual = 0
-    posicionMenorEnColumna = 0
-    #Sacamos al menor de U
-    for x in range(len(matriz[0]-1)):
-        if matriz[0][x] <= 0 and matriz[0][x] < menorActual:
-            menorActual = matriz[0][x]
-            posicionMenorEnColumna = x
-
-    if(menorActual >= 0):
-        print("\nMatriz Final: \n", matriz, "\nU: ", matriz[0][len(matriz[0])-1] ,"\nSolución: ", "Sin Terminar")
-        texto = "\n\nMatriz Final: \n"+ str(matriz)+ "\nU: "+ str(matriz[0][len(matriz[0])-1]) +"\nSolución: "+ "Sin Terminar"
-        return escribir(texto)
-    else:                
-        #columnaMenor es columnaPivote y columnaResultado es el LD
-        columnaMenor = matriz[:,posicionMenorEnColumna]
-        columnaResultado = matriz[:,(len(matriz[0]))-1]               
-        numeroFila = 0
-        textoColumnaPivote = "\nColumna Pivote: "+ str(columnaMenor) 
-        
-        #Acá sacamos al pivote y los respectivos valores de la división de LD / columna pivote
-        if iteracion == 0:
-            pivote = 10000
-            for i in range(len(matriz)):
-                if columnaMenor[i] > 0 and (pivote > (columnaResultado[i] / columnaMenor[i])) and ((columnaResultado[i] / columnaMenor[i]) > 0): 
-                            pivote = columnaMenor[i]
-                            filaPivote = matriz[i]
-                            numeroFila= i
-        elif iteracion >0:
-            pivote = 0
-            for i in range(len(matriz)):
-                if columnaMenor[i] > 0 and (pivote < (columnaResultado[i] / columnaMenor[i])) and ((columnaResultado[i] / columnaMenor[i]) > 0): 
-                            pivote = columnaMenor[i]
-                            filaPivote = matriz[i]
-                            numeroFila= i
-            
-        y = 0
-        z = 0
-        m = 0
-        nuevaFila = [] 
-        filaPivoteNueva= []
-        filaAntigua = []
-        #print(numeroFila)
-
-        while y < len(matriz):
-            if y == numeroFila:
-                while z < len(filaPivote):
-                    texto = "\nOperación a realizar: " + str(filaPivote[z]) + "/" + str(pivote)
-                    escribir(texto)
-                    nuevaFila.append(filaPivote[z] / pivote)
-                    filaAntigua.append(filaPivote[z])
-                    filaPivoteNueva.append(filaPivote[z] / pivote)
-                    z +=1
-                cambiar_fila(matriz, filaPivoteNueva, numeroFila)
-                nuevaFila = []                    
-            y+=1
-        texto = "\n\nPivote: " +str(pivote) +textoColumnaPivote+"\nCambiando Fila: Pivote" +"\nFila Pivote: " + str(filaAntigua) + "\nNueva Fila pivote: " + str(filaPivoteNueva) + "\nNueva Matriz:\n"+ str(matriz) +  "\n\n\n"
-        escribir(texto)
-        filaAntigua = []
-        while m < len(matriz):
-            if m != numeroFila:
-                n =0
-                
-                while n < len(filaPivote):
-                    filaAntigua.append(matriz[m][n])
-                    texto = "\nOperación a realizar: " + str(matriz[m][n]) + "+" +str(-columnaMenor[m])+"*"+str(filaPivoteNueva[n])
-                    escribir(texto)
-                    nuevaFila.append(matriz[m][n]+((-columnaMenor[m])*filaPivoteNueva[n]))
-                    n += 1
-                cambiar_fila(matriz, nuevaFila, m)
-                texto = "\nCambiando Fila: " + str(m+1) +"\nFila Antigua: " + str(filaAntigua) + "\nNueva Fila: " + str(nuevaFila)+ "\nNueva Matriz:\n"+ str(matriz)+ "\n\n\n"
-                escribir(texto) 
-                nuevaFila = []  
-                filaAntigua = [] 
-            m += 1
-        
-    #print(matriz)
-    determinar_solucion(matriz, 1)
-    
-
-            
-determinar_solucion(matrix, 0)
+        elif count > bVariables:
+            temp.append("s"+str(count-bVariables))
+        else:
+            temp.append("x"+str(count))
+        count += 1
+    # columnaMenor es columnaPivote y columnaResultado es el LD
+    temp.append("LD")
+    matriz.append(temp)
+    len_matrix = restricciones+1
+    for i in range(len_matrix):
+        temp = listaceros(lenght+2)
+        matriz.append(temp)
 
 
-<<<<<<< Updated upstream
-=======
-    
-    for i in range(len(matrizConNumeros)):
-        letra = np.array(columnaLetras[i])
-        numeros = np.array(matrizConNumeros[i])
-        matrizFinal.append(letra)
-        matrizFinal.append(numeros)
-    
-    textoMatriz= ""
-    i = 0  
-    while i < (len(matrizFinal)):
-        filaNumeros = ""
-        for j in range (len(matrizFinal[i+1])):
-            filaNumeros += str(round(matrizFinal[i+1][j],2)) + "  "
-        textoMatriz += "   " + str(matrizFinal[i])+ "  " + filaNumeros + "\n"
-        i += 2  
-    textoFinal = str(encabezado)+ "\n" + textoMatriz 
-    return textoFinal
-           
-determinar_solucion(matrizATrabajar, 0)
+print(matriz)
+
+# Esta función crea la matriz inicial a partir de las líneas
+# del archivo, comprueba el método para los escenarios de casos especiales en la primera línea,
+# y si no, simplemente coloca los valores en sus respectivos lugares en la matriz.
 
 
+def crearMatriz():
+    global dVariables, bVariables
+    prep_matriz()
+    countD = bVariables+1
+    countA = bVariables+dVariables+1
+    matriz[1][0] = "U"
+    i = 1
+    while(i < len(Lineas)):
+        j = 0
+        while(j < len(Lineas[i])):
+            if i == 1 and aVariables > 0 and metodo == 1:
+                matriz[i][j+1] = float(Lineas[i][j])
+                k = countA
+                while(k < len(matriz[1])-1):
+                    if optimizacion == "max":
+                        matriz[1][k] = -1000
+                    else:
+                        matriz[1][k] = 1000
+                    k += 1
+            elif i == 1 and aVariables > 0 and metodo == 2:
+                matriz[i][j+1] = float(Lineas[i][j])
+                k = 1
+                while(k < len(matriz[1])-1):
+                    if(k < bVariables + dVariables + 1):
+                        matriz[1][k] = 0
+                    else:
+                        matriz[1][k] = -1
+                    k += 1
+            elif i == 1:
+                matriz[i][j+1] = -1*float(Lineas[i][j])
+            elif Lineas[i][j] == "<=":
+                matriz[i][0] = matriz[0][countD]
+                matriz[i][countD] = 1
+                countD += 1
+            elif Lineas[i][j] == ">=":
+                matriz[i][0] = matriz[0][countA]
+                matriz[i][countD] = -1
+                countD += 1
+                matriz[i][countA] = 1
+                countA += 1
+            elif Lineas[i][j] == "=":
+                matriz[i][0] = matriz[0][countA]
+                matriz[i][countA] = 1
+                countA += 1
+            elif j == len(Lineas[i])-1 and i != 1:
+                matriz[i][-1] = float(Lineas[i][j])
+            else:
+                matriz[i][j+1] = float(Lineas[i][j])
+            j += 1
+        i += 1
 
+# print(Lineas)
+
+
+# Función que inicializa el método simplex
+
+def inic_simplex():
+    out.write(""+"\n")
+    out.write("Matriz Inicial"+"\n")
+    print("")
+    print("Matriz Inicial")
+    out.write(matriz_string()+"\n")
+    print(matriz_string())
+    simplex(1)
+
+
+# Funcion que retorna la matriz final en pantalla o los casos especiales, además de llamar la función de escribir
+def simplex(iteracion):
+
+    mnv = varNeg()
+
+    # Cuando no hay variables negativas, el método símplex finaliza
+    if mnv[0] == None:
+        soluciones_extra()
+        impr_sol()
+        return 0
+
+    else:
+        restriccion = determinar_restriccion(mnv[2], iteracion)
+
+        # Cuando hay una restricción inelegible, significa que no hay solución con simplex
+        if restriccion[0] == None:
+            out.write("Tipo de Matriz: No acotada"+"\n")
+            print("Tipo de Matriz: No acotada")
+  
+        else:
+            # Imprime la iteración actual y grafica el estado actual de la matriz
+            out.write("Variable básica que entra: " + mnv[0]+"\n")
+            out.write("Variable básica que sale: " + restriccion[0]+"\n")
+            out.write("Número Pivote: " +
+                      str(matriz[restriccion[2]][mnv[2]])+"\n")
+
+            print("")
+            print("Variable básica que entra: " + mnv[0])
+            print("Variable básica que sale: " + restriccion[0])
+            print("Número Pivote:: " + str(matriz[restriccion[2]][mnv[2]]))
+
+            matriz[restriccion[2]][0] = mnv[0]
+            op_filas(mnv[2], restriccion[2])
+            print("")
+            out.write(""+"\n")
+            out.write(matriz_string()+"\n")
+            print(matriz_string())
+
+            return simplex(iteracion + 1)
+
+
+def varNeg():
+    # La respuesta tiene la forma [variable, valor, número de columna]
+    res = [None, 0, 0]
+    var_cant = len(matriz[0]) - 1
+    i = 1
+
+    # Revisa las variables para encontrar si existe un negativo
+    while i < var_cant:
+        if matriz[1][i] <= res[1] and matriz[1][i] != 0:
+            res = [matriz[0][i], matriz[1][i], i]
+        i = i + 1
+
+    return res
+
+
+def determinar_restriccion(mnv, iteracion):
+    global flagDeg
+    divisiones = []
+    # La respuesta tiene la forma [restricción, división con el resultado del valor minimo negativo, número de fila]
+    res = [None, 0, 0]
+    cant_res = len(matriz)  # Determina ctd. de restricciones
+    i = 1
+    while i < cant_res:
+        if matriz[i][mnv] > 0 and matriz[i][-1] >= 0:
+            res_div = matriz[i][-1]/matriz[i][mnv]
+            divisiones.append(matriz[i][-1]/matriz[i][mnv])
+            # Si es la primera división, se pone como respuesta
+            if res[0] == None:
+                res = [matriz[i][0], res_div, i]
+
+            else:
+                # revisa si la division es mejor a la respuesta actual
+                if res_div < res[1]:
+                    res = [matriz[i][0], res_div, i]
+
+        i = i + 1
+    if divisiones != [] and divisiones.count(min(divisiones)) > 1:
+        flagDeg = True
+        degenerada = iteracion
+    return res
+
+# Esta función se utiliza para aplicar las operaciones necesarias en la matriz para la iteración
+
+
+def op_filas(mnv, restriccion):
+    row_amount = len(matriz)
+    column_amount = len(matriz[0])
+# Calcula el multiplicativo inverso del valor mnv en la restricción elegida para multiplicarlos y asegurarse de que el resultado sea 1
+    inverse_multiplicative = 1/matriz[restriccion][mnv]
+    j = 1
+
+
+# Multiplica la fila de restricción elegida por el multiplicativo inverso
+    while j < column_amount:
+        matriz[restriccion][j] = matriz[restriccion][j] * \
+            inverse_multiplicative
+        j = j + 1
+
+    i = 1
+
+# Va a través de la matriz, haciendo que la columna mnv sea 0 (excepto la restricción elegida)
+    while i < row_amount:
+
+        if i != restriccion:
+            j = 1
+            multiplier = - matriz[i][mnv]
+
+            while j < column_amount:
+                matriz[i][j] = round(matriz[restriccion][j]
+                                     * multiplier + matriz[i][j], 2)
+                j = j + 1
+
+        i = i + 1
+
+
+# Función que devuelve una cadena con una matriz en forma de tabla.
+
+def matriz_string():
+    res = ""
+
+    for line in matriz:
+
+        for rengl in line:
+            rengl_largo = len(str(rengl))
+            if rengl_largo > 6:
+                rengl_largo = 6
+            res = res + ('%.6s' % str(rengl))
+            VACIO = 8 - rengl_largo
+            res = res + (" " * VACIO)
+        res = res + "\n"
+
+    return res
+
+
+'''
+def Imprimir_Tabla(Tabla,n,m,faseDoble,H,Resultados,regPivote):
+    texto = str(Tabla) + str(n) + str(m), str(faseDoble), str(H), str(Resultados)+ str(regPivote)
+    return texto
+'''
+
+# Función que imprime la solución final de la matriz, también comprueba si la respuesta es degenerada
+
+
+def impr_sol():
+    if flagDeg:
+        out.write(""+"\n")
+        print("")
+        out.write("Solución Degenerada"+"\n")
+        print("Solución Degenerada")
+    if extra_sols:
+        out.write(""+"\n")
+        print("")
+        out.write("Solución Multiple"+"\n")
+        print("Solución Multiple")
+    if not extra_sols and not flagDeg:
+        print("")
+        out.write(""+"\n")
+        out.write("Solución"+"\n")
+        print("Solución")
+    print("")
+    out.write(""+"\n")
+    out.write("Valor de las variables:"+"\n")
+    print("Valor de las variables:")
+    res = {}
+    # Encuentra las variables
+    for column in matriz[0]:
+        if column[0] == "x" or column[0] == "s" or column[0] == "r":
+            res[column] = 0
+
+    # Encuentra las variables
+    for fila in matriz[1:]:
+        if fila[0][0] in ["x", "U", "r", "s"]:
+            res[fila[0]] = fila[-1]
+
+    if optimizacion == "min" and metodo != 0:
+        res["U"] *= -1
+    #Imprime variables
+    for variable in sorted(res.keys()):
+        out.write(variable + " = " + str(res[variable])+"\n")
+        print(variable + " = " + str(res[variable]))
+
+    out.write("Valor óptimo de U es: "+"\n")
+    print("Valor óptimo de U es: ")
+    out.write("U = " + str(res["U"])+"\n")
+    print("U = " + str(res["U"]))
+    if metodo != 2:
+        out.close()
+
+# Función encargada de resolver la matriz mediante el metodo de la gran M
 
 # Esta función se usa para encontrar el número 1 en la misma columna de M para hacer M 0.
 
+
 def encontrar_fila(column):
     i = 0
-    while(i<len(matriz)):
+    while(i < len(matriz)):
         if matriz[i][column] == 1:
             break
-        i+=1
-    return i 
+        i += 1
+    return i
 
 
-# Esta función se utiliza para mostrar las operaciones para hacer Ms 0.
+# Esta función se utiliza para mostrar las operaciones para hacer M 0.
 
-# method = arreglo[0][0]
-optimization = arreglo[0][1]
-bVariables = arreglo[0][2]
-matriz = []
-dVariables = 0
-aVariables = 0 
+def conv_m_ceros():
+    if optimizacion == "max":
+        j = 1
+        while(j < len(matriz[1])):
+            matriz[1][j] *= -1
+            j += 1
+    out.write(""+"\n")
+    out.write(matriz_string()+"\n")
+    print("")
+    print(matriz_string())
+    countA = bVariables+dVariables+1
+    while(countA < len(matriz[0])-1):
+        fila = encontrar_fila(countA)
+        multiplier = -matriz[1][countA]
+        i = 1
+        while(i < len(matriz[0])):
+            matriz[1][i] = matriz[fila][i] * multiplier + matriz[1][i]
+            i = i + 1
+        countA += 1
+    inic_simplex()
 
-def make_m_zero():
-      if optimization == "max":
-          j = 1
-          while(j<len(matriz[1])):
-              matriz[1][j]*=-1
-              j+=1
-      texto =(""+"\n")
-      print("")
-      countA = bVariables+dVariables+1
-      while(countA<len(matriz[0])-1):
-            row = encontrar_fila(countA)
-            multiplier = -matriz[1][countA]
-            i = 1
-            while(i < len(matriz[0])):
-                matriz[1][i] = matriz[row][i] * multiplier + matriz[1][i]
-                i = i + 1
-            texto =(""+"\n")
-            texto =(str(multiplier) + "f" + str(row) + " + f" + str(0) + " -> f" + str(0)+"\n")
-            print("")
-            texto =(str(multiplier) + "f" + str(row) + " + f" + str(0) + " -> f" + str(0))
-            countA+=1
-            
-      determinar_solucion()
->>>>>>> Stashed changes
+
+# Metodo 2 fases
+
+# Esta función se utiliza para trabajar sobre la primera fase del método de dos fases, fija la primera
+# fila girando a cero los valores necesarios y luego aplica simplex y verifica el resultado final
+# de la fase para comprobar si puede continuar o no a la segunda fase.
+
+
+def PrimeraFase():
+    global dVariables
+    conv_r_ceros()
+    j = 1
+    while(j < len(matriz[1])):
+        matriz[1][j] *= -1
+        j += 1
+    inic_simplex()
+    if matriz[1][-1] == 0:
+        SegundaFase()
+    else:
+        out.write("No es posible solucionar este problema.")
+        print("No es posible solucionar este problema.")
+
+
+# Esta función se utiliza para encontrar las variables artificiales y agrega las filas en las que se encuentran
+# la primera fila de la respuesta, esto es necesario para la segunda fase del método de dos fases
+
+
+def conv_r_ceros():
+    i = 2
+    while(i < len(matriz)):
+        if(matriz[i][0][0] == 'r'):
+            j = 1
+            while(j < len(matriz[0])):
+                matriz[1][j] = matriz[1][j] + matriz[i][j]
+                j += 1
+        i += 1
+
+
+# Esta función se utiliza para trabajar sobre la segunda fase del método de dos fases, transforma la
+# matriz eliminando las variables artificiales y colocando la primera línea original en la matriz.
+# Posteriormente busca los valores que tiene que convertir a cero y aplica simplex para obtener el resultado final.
+# respuesta.
+'''
+
+def Restricciones(Tabla,fase_Doble,m,n):
+    
+    if fase_Doble==1:
+        Zmin = sorted(Tabla[0])
+    else:
+        Zmin = [Tabla[0][n+(2*m)]]
+        
+    return Zmin
+'''
+
+def SegundaFase():
+    global dVariables, bVariables
+    i = 0
+    while(i < len(matriz)):
+        j = 0
+        while(j < dVariables):
+            matriz[i].pop(bVariables + dVariables + 1)
+            j += 1
+        i += 1
+
+    i = 1
+    while(i <= bVariables):
+        matriz[1][i] = -1*float(Lineas[1][i-1])
+        i += 1
+
+    i = 2
+    while(i < len(matriz)):
+        j = 1
+        multiplier = abs(matriz[1][matriz[i].index(1)])
+        while(j < len(matriz[1])):
+            matriz[1][j] = round(
+                round(matriz[i][j] * multiplier, 2) + matriz[1][j], 2)
+            j += 1
+        i += 1
+    j = 1
+    while(j < len(matriz[1])):
+        matriz[1][j] *= -1
+        j += 1
+    print(matriz_string())
+    inic_simplex()
+
+
+# Funcion que calcula al menos una solucion extra 
+
+def soluciones_extra():
+    global extra_sols
+    for i in range(bVariables+1, len(matriz[1])):
+        if matriz[1][i] == 0:
+            extra_sols = True
+
+# Funcion main que recibe  métodos utilizados en este proyecto con Gran M, Dos Fases y Dual,
+# indicados en el archivo de configuración con los indices 1 para la gran M, 2 para
+# Dos Fases, y 3 para Dual.
+
+if metodo == 0:
+    crearMatriz()
+    inic_simplex()
+elif metodo == 1:
+    crearMatriz()
+    conv_m_ceros()
+elif metodo == 2:
+    crearMatriz()
+    PrimeraFase()
+# elif metodo ==3:
+
+"""
+A= restricciones
+z función objetivo
+n= número de variables
+m= número de restricciones
+b= lado derecho
+h= símbolos
+1 si es maximizar y 2 si es minimizar
+
+"""
+
