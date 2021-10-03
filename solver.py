@@ -21,7 +21,21 @@ def abrir_archivo(file_name):
         i += 1
     return Lineas
 
+'''
+def leerDocumento(documento_entrada):
+    #S: Llama a la función donde se crea la matriz iniciar
+    #document = sys.argv[1]
+    #print(sys.argv[1])
+    with open(str(documento_entrada)) as documento:
+        contenido = documento.read()
+    arreglo = contenido.split("\n")
+    Lineas = []
+    for i in range(len(arreglo)):
+        Lineas.append(arreglo[i].split(","))
+    return Lineas
 
+# datosDocumento = leerDocumento()
+'''
 # Variables a utilizar para determinar si es degenerada o si existe una solucion extra
 extra_sols = False
 flagDeg = False
@@ -33,11 +47,10 @@ if sys.argv[1] == "[-h]":
     print("El archivo de código fuente a ejecutarse debe llamarse simplex.py \n")
     print("Para ejecutarlo:python simplex.py [-h] (archivo).txt")
     Lineas = abrir_archivo(sys.argv[2])
-    #nombre_archivo = documento_salida[0]+"_solution.txt"
-    out = open(sys.argv[2]+"_solution", 'w')
+    out = open("solution_"+sys.argv[2], 'w')
 else:
     Lineas = abrir_archivo(sys.argv[1])
-    out = open(sys.argv[1]+"_solution", 'w')
+    out = open("solution_"+sys.argv[1], 'w')
 
 metodo = Lineas[0][0]
 optimizacion = Lineas[0][1]
@@ -97,7 +110,7 @@ def prep_matriz():
         matriz.append(temp)
 
 
-print(matriz)
+# print(matriz)
 
 # Esta función crea la matriz inicial a partir de las líneas
 # del archivo, comprueba el método para los escenarios de casos especiales en la primera línea,
@@ -348,7 +361,7 @@ def impr_sol():
 
     if optimizacion == "min" and metodo != 0:
         res["U"] *= -1
-    #Imprime variables
+    # Imprime variables
     for variable in sorted(res.keys()):
         out.write(variable + " = " + str(res[variable])+"\n")
         print(variable + " = " + str(res[variable]))
@@ -405,12 +418,10 @@ def conv_m_ceros():
 # de la fase para comprobar si puede continuar o no a la segunda fase.
 
 
-
 ############################
 
 def PrimeraFase():
-    print("aaaaaaaaaaaaa")
-    global dVariablesGITH
+    global dVariables
     conv_r_ceros()
     j = 1
     while(j < len(matriz[1])):
@@ -422,7 +433,6 @@ def PrimeraFase():
     else:
         out.write("No es posible solucionar este problema.")
         print("No es posible solucionar este problema.")
-
 
 
 # Esta función se utiliza para encontrar las variables artificiales y agrega las filas en las que se encuentran
@@ -498,8 +508,8 @@ def soluciones_extra():
 
 
 def sacar_parametros(matriz):
-    #E: La matriz del archivo de configuracion
-    #S: La matriz sin los parametros de la primer linea
+    # E: La matriz del archivo de configuracion
+    # S: La matriz sin los parametros de la primer linea
     u = matriz[0]
     resultado = matriz[1:]
     resultado = resultado+[u]
@@ -507,15 +517,15 @@ def sacar_parametros(matriz):
 
 
 def convertir_dual(matriz):
-    #E: La matriz dual
-    #S: saca la funcion objetivo U
+    # E: La matriz dual
+    # S: saca la funcion objetivo U
     swapU = sacar_parametros(matriz[1:])
     return swapU
 
 
 def sacar_restricciones(matriz):
-    #E: La matriz
-    #S: La matriz pero sin la columna de los signos de restriccion
+    # E: La matriz
+    # S: La matriz pero sin la columna de los signos de restriccion
     largo = len(matriz)
     for i in range(0, largo-1):
         # Para agarrar solo la penultima columna de las restricciones
@@ -526,8 +536,8 @@ def sacar_restricciones(matriz):
 
 
 def agregar_nuevas_restricciones(matriz, restricciones):
-    #E: La matriz, las muevas restricciones a cambiar para el problema dual
-    #S: La matriz con los nuevos signos de restriccion
+    # E: La matriz, las muevas restricciones a cambiar para el problema dual
+    # S: La matriz con los nuevos signos de restriccion
     largo = len(matriz)
     for i in range(0, largo):
         tmp1 = matriz[i][-1:]
@@ -538,15 +548,15 @@ def agregar_nuevas_restricciones(matriz, restricciones):
 
 
 def transpuesta(matriz_primalX):
-    #E: La matriz primal a convertir
-    #S: La nueva matriz dual (transpuesta de primal)
+    # E: La matriz primal a convertir
+    # S: La nueva matriz dual (transpuesta de primal)
     resultado = [[matriz_primalX[j][i] for j in range(
         len(matriz_primalX))] for i in range(len(matriz_primalX[0]))]
     return resultado
 
 
 def problema_dual(matriz_primal):
-    #E: Recibe la matriz primal
+    # E: Recibe la matriz primal
     # S: La matriz convertida a dual para aplicar algun metodo
 
     print('Matriz primal: \n', matriz_primal, '\n')
@@ -629,8 +639,8 @@ elif metodo == 1:
 elif metodo == 2:
     crearMatriz()
     PrimeraFase()
-elif metodo ==3:
-    matriz = problema_dual(Lineas) #trans
+elif metodo == 3:
+    matriz = problema_dual(Lineas)  # transpuesta
     PrimeraFase()
 
 """
@@ -641,4 +651,5 @@ m= número de restricciones
 b= lado derecho
 h= símbolos
 1 si es maximizar y 2 si es minimizar
+
 """
