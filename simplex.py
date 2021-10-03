@@ -19,7 +19,8 @@ def abrir_archivo(file_name):
         Lineas[i] = [int(e) if e.isdigit()
                      else e for e in Lineas[i].split(',')]
         i += 1
-    return Lineas
+    #return Lineas
+    print('Lineas> ', Lineas)
 
 
 # Variables a utilizar para determinar si es degenerada o si existe una solucion extra
@@ -29,14 +30,15 @@ flagDeg = False
 # -h es un parámetro de ingreso opcional
 # python solver.py [-h] archivo.txt
 
-if sys.argv[1] == "-h":
+if sys.argv[1] == "[-h]":
     print("El archivo de código fuente a ejecutarse debe llamarse simplex.py \n")
     print("Para ejecutarlo:python simplex.py [-h] (archivo).txt")
     Lineas = abrir_archivo(sys.argv[2])
-    out = open("out_"+sys.argv[2], 'w')
+    #nombre_archivo = documento_salida[0]+"_solution.txt"
+    out = open(sys.argv[2]+"_solution", 'w')
 else:
     Lineas = abrir_archivo(sys.argv[1])
-    out = open("out_"+sys.argv[1], 'w')
+    out = open(sys.argv[1]+"_solution", 'w')
 
 metodo = Lineas[0][0]
 optimizacion = Lineas[0][1]
@@ -55,6 +57,7 @@ def listaceros(n):
     return [0] * n
 
 # Esta función hace el trabajo de agregar las variables adicionales
+
 
 def contar_variables():
     global dVariables, aVariables, bVariables
@@ -186,7 +189,7 @@ def simplex(iteracion):
         if restriccion[0] == None:
             out.write("Tipo de Matriz: No acotada"+"\n")
             print("Tipo de Matriz: No acotada")
-  
+
         else:
             # Imprime la iteración actual y grafica el estado actual de la matriz
             out.write("Variable básica que entra: " + valor_neg_min[0]+"\n")
@@ -197,7 +200,8 @@ def simplex(iteracion):
             print("")
             print("Variable básica que entra: " + valor_neg_min[0])
             print("Variable básica que sale: " + restriccion[0])
-            print("Número Pivote:: " + str(matriz[restriccion[2]][valor_neg_min[2]]))
+            print("Número Pivote:: " +
+                  str(matriz[restriccion[2]][valor_neg_min[2]]))
 
             matriz[restriccion[2]][0] = valor_neg_min[0]
             op_filas(valor_neg_min[2], restriccion[2])
@@ -437,7 +441,6 @@ def conv_r_ceros():
 # Posteriormente busca los valores que tiene que convertir a cero y aplica simplex para obtener el resultado final.
 # respuesta.
 '''
-
 def Restricciones(Tabla,fase_Doble,m,n):
     
     if fase_Doble==1:
@@ -447,6 +450,7 @@ def Restricciones(Tabla,fase_Doble,m,n):
         
     return Zmin
 '''
+
 
 def SegundaFase():
     global dVariables, bVariables
@@ -480,7 +484,7 @@ def SegundaFase():
     inic_simplex()
 
 
-# Funcion que calcula al menos una solucion extra 
+# Funcion que calcula al menos una solucion extra
 
 def soluciones_extra():
     global extra_sols
@@ -488,9 +492,129 @@ def soluciones_extra():
         if matriz[1][i] == 0:
             extra_sols = True
 
+
+def sacar_parametros(matriz):
+    #E: La matriz del archivo de configuracion
+    #S: La matriz sin los parametros de la primer linea
+    u = matriz[0]
+    resultado = matriz[1:]
+    resultado = resultado+[u]
+    return resultado
+
+
+def convertir_dual(matriz):
+    #E: La matriz dual
+    #S: saca la funcion objetivo U
+    swapU = sacar_parametros(matriz[1:])
+    return swapU
+
+
+def sacar_restricciones(matriz):
+    #E: La matriz
+    #S: La matriz pero sin la columna de los signos de restriccion
+    largo = len(matriz)
+    for i in range(0, largo-1):
+        # Para agarrar solo la penultima columna de las restricciones
+        tmp = matriz[i][-1]
+        matriz[i] = matriz[i][:-2]+[tmp]
+
+    return matriz
+
+
+def agregar_nuevas_restricciones(matriz, restricciones):
+    #E: La matriz, las muevas restricciones a cambiar para el problema dual
+    #S: La matriz con los nuevos signos de restriccion
+    largo = len(matriz)
+    for i in range(0, largo):
+        tmp1 = matriz[i][-1:]
+        tmp2 = matriz[i][:-1]
+        matriz[i] = tmp2+[restricciones[i]]+tmp1
+
+    return matriz
+
+
+def transpuesta(matriz_primalX):
+    #E: La matriz primal a convertir
+    #S: La nueva matriz dual (transpuesta de primal)
+    resultado = [[matriz_primalX[j][i] for j in range(
+        len(matriz_primalX))] for i in range(len(matriz_primalX[0]))]
+    return resultado
+
+
+def problema_dual(matriz_primal):
+    #E: Recibe la matriz primal
+    # S: La matriz convertida a dual para aplicar algun metodo
+
+    print('Matriz primal: \n', matriz_primal, '\n')
+
+    # Saca el signo de restriccion
+    signo_restriccion = matriz_primal[2][len(matriz_primal[2])-2]
+    signo_restriccion_nuevo = ' '
+
+    if signo_restriccion == '<=':
+        signo_restriccion_nuevo = '>='
+    else:
+        signo_restriccion_nuevo = '<='
+
+    print('Signo restriccion: ', signo_restriccion)
+    print('Signo restriccion nuevo: ', signo_restriccion_nuevo, '\n')
+    matriz_dual = matriz_primal
+
+    params = matriz_dual[0]  # Se guardan los parametros
+    u = matriz_dual[1]  # Se guarda la funcion U de la matriz primal
+    matriz_dual = convertir_dual(matriz_dual)
+    matriz_dual = sacar_restricciones(matriz_dual)
+    cont = 0
+    # Diferencia del tamano de columnas
+    diferencia = (len(matriz_dual[1]))-(len(u))
+    agregarAU = len(matriz_dual)
+    print('Len diferencia: ', diferencia)
+    while (cont <= diferencia-1):
+        matriz_dual[agregarAU-1].append('0')
+        cont += 1
+        print(cont)
+
+    matriz_dual = transpuesta(matriz_dual)
+
+    # Se guarda la nueva funcion objetico del problema dual
+    w = matriz_dual[(len(matriz_dual)-1)]
+
+    # Se guarda la matriz dual sin la funcion objetivo
+    matriz_dual_sinW = matriz_dual[:-1]
+
+    varDecision = params[2]
+    restricciones = params[3]
+    # Intercambiar restricciones y variables de decision para W
+    params[2] = restricciones
+    params[3] = varDecision
+
+    restricciones_signo = []
+    cant_restricciones = params[3]
+    print('Cantidad restrcciones nuevas: ', cant_restricciones)
+    cant = 1
+    # Para sacar la nueva cant de restricciones que va tener el problema dual
+    while cant <= int(cant_restricciones):
+        restricciones_signo.append(signo_restriccion_nuevo)
+        cant += 1
+
+    # Se agregan las nuevas restricciones a la matriz
+    matriz_dual = agregar_nuevas_restricciones(
+        matriz_dual_sinW, restricciones_signo)
+
+    # Se agrega la fila con la funcion objetivo w al inicio de la matriz
+    matriz_dual = [w]+matriz_dual
+
+    print('\n Matriz Dual Resultante: \n', matriz_dual)
+    matrizResultante_Dual = [params]+matriz_dual
+
+    print('\n Matriz Dual Resultante: \n', matriz_dual)
+
+    return matrizResultante_Dual
+
 # Funcion main que recibe  métodos utilizados en este proyecto con Gran M, Dos Fases y Dual,
 # indicados en el archivo de configuración con los indices 1 para la gran M, 2 para
 # Dos Fases, y 3 para Dual.
+
 
 if metodo == 0:
     crearMatriz()
@@ -502,6 +626,7 @@ elif metodo == 2:
     crearMatriz()
     PrimeraFase()
 # elif metodo ==3:
+    problema_dual(Lineas)
 
 """
 A= restricciones
@@ -511,6 +636,4 @@ m= número de restricciones
 b= lado derecho
 h= símbolos
 1 si es maximizar y 2 si es minimizar
-
 """
-
