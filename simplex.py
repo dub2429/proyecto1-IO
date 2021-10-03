@@ -171,16 +171,16 @@ def inic_simplex():
 # Funcion que retorna la matriz final en pantalla o los casos especiales, además de llamar la función de escribir
 def simplex(iteracion):
 
-    mnv = varNeg()
+    valor_neg_min = varNeg()
 
     # Cuando no hay variables negativas, el método símplex finaliza
-    if mnv[0] == None:
+    if valor_neg_min[0] == None:
         soluciones_extra()
         impr_sol()
         return 0
 
     else:
-        restriccion = determinar_restriccion(mnv[2], iteracion)
+        restriccion = determinar_restriccion(valor_neg_min[2], iteracion)
 
         # Cuando hay una restricción inelegible, significa que no hay solución con simplex
         if restriccion[0] == None:
@@ -189,18 +189,18 @@ def simplex(iteracion):
   
         else:
             # Imprime la iteración actual y grafica el estado actual de la matriz
-            out.write("Variable básica que entra: " + mnv[0]+"\n")
+            out.write("Variable básica que entra: " + valor_neg_min[0]+"\n")
             out.write("Variable básica que sale: " + restriccion[0]+"\n")
             out.write("Número Pivote: " +
-                      str(matriz[restriccion[2]][mnv[2]])+"\n")
+                      str(matriz[restriccion[2]][valor_neg_min[2]])+"\n")
 
             print("")
-            print("Variable básica que entra: " + mnv[0])
+            print("Variable básica que entra: " + valor_neg_min[0])
             print("Variable básica que sale: " + restriccion[0])
-            print("Número Pivote:: " + str(matriz[restriccion[2]][mnv[2]]))
+            print("Número Pivote:: " + str(matriz[restriccion[2]][valor_neg_min[2]]))
 
-            matriz[restriccion[2]][0] = mnv[0]
-            op_filas(mnv[2], restriccion[2])
+            matriz[restriccion[2]][0] = valor_neg_min[0]
+            op_filas(valor_neg_min[2], restriccion[2])
             print("")
             out.write(""+"\n")
             out.write(matriz_string()+"\n")
@@ -224,7 +224,7 @@ def varNeg():
     return res
 
 
-def determinar_restriccion(mnv, iteracion):
+def determinar_restriccion(valor_neg_min, iteracion):
     global flagDeg
     divisiones = []
     # La respuesta tiene la forma [restricción, división con el resultado del valor minimo negativo, número de fila]
@@ -232,9 +232,9 @@ def determinar_restriccion(mnv, iteracion):
     cant_res = len(matriz)  # Determina ctd. de restricciones
     i = 1
     while i < cant_res:
-        if matriz[i][mnv] > 0 and matriz[i][-1] >= 0:
-            res_div = matriz[i][-1]/matriz[i][mnv]
-            divisiones.append(matriz[i][-1]/matriz[i][mnv])
+        if matriz[i][valor_neg_min] > 0 and matriz[i][-1] >= 0:
+            res_div = matriz[i][-1]/matriz[i][valor_neg_min]
+            divisiones.append(matriz[i][-1]/matriz[i][valor_neg_min])
             # Si es la primera división, se pone como respuesta
             if res[0] == None:
                 res = [matriz[i][0], res_div, i]
@@ -253,11 +253,11 @@ def determinar_restriccion(mnv, iteracion):
 # Esta función se utiliza para aplicar las operaciones necesarias en la matriz para la iteración
 
 
-def op_filas(mnv, restriccion):
+def op_filas(valor_neg_min, restriccion):
     row_amount = len(matriz)
     column_amount = len(matriz[0])
-# Calcula el multiplicativo inverso del valor mnv en la restricción elegida para multiplicarlos y asegurarse de que el resultado sea 1
-    inverse_multiplicative = 1/matriz[restriccion][mnv]
+# Calcula el multiplicativo inverso del valor valor_neg_min en la restricción elegida para multiplicarlos y asegurarse de que el resultado sea 1
+    inverse_multiplicative = 1/matriz[restriccion][valor_neg_min]
     j = 1
 
 
@@ -269,12 +269,12 @@ def op_filas(mnv, restriccion):
 
     i = 1
 
-# Va a través de la matriz, haciendo que la columna mnv sea 0 (excepto la restricción elegida)
+# Va a través de la matriz, haciendo que la columna valor_neg_min sea 0 (excepto la restricción elegida)
     while i < row_amount:
 
         if i != restriccion:
             j = 1
-            multiplier = - matriz[i][mnv]
+            multiplier = - matriz[i][valor_neg_min]
 
             while j < column_amount:
                 matriz[i][j] = round(matriz[restriccion][j]
