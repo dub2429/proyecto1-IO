@@ -10,8 +10,6 @@ def mochila(pesos, beneficios,capacidad):
     matrizCeros = np.zeros((len(pesos), capacidad+1))
     k = 0
     
-    
-    
     while k < len(pesos):
         for w in range(capacidad+1):
             if pesos[k] > w:
