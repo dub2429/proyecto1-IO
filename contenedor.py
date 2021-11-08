@@ -7,77 +7,56 @@ import functools
 
 
 def top_down(valor, peso, capacidad):
-    """Devuelve el valor máximo de los artículos que no supere la capacidad.
- 
-    valor[i] is the valor of item i and weight[i] is the weight of item i
-    for 1 <= i <= n where n is the number of items.
- 
-    capacidad is the maximum weight.
-    """
+    #E: valor[i] es el valor del item i y el peso[i] es el peso del item i
+    #para 1 <= i <= n donde n es el numero de items
+    #Capacidad es el peso maximo.
+    #S: Devuelve el valor máximo de los artículos que no supere la capacidad.
+
     n = len(valor)-1
  
-    # m[i][w] will store the maximum valor that can be attained with a maximum
-    # capacidad of w and using only the first i items
+    # m[i][w] almacenará el valor máximo que se puede obtener con una capacidad 
+    # máxima de p (pesos) utilizando solo los primeros i elementos
     m = [[-1]*(capacidad + 1) for _ in range(n + 1)]
  
     return top_down_aux(valor, peso, m, n, capacidad)
  
  
-def top_down_aux(valor, peso, m, i, w):
-    """Return maximum valor of first i items attainable with weight <= w.
+def top_down_aux(valor, peso, m, i, p):
+    #E: Los items, el peso de los items, la matriz de los calculos, cantidad de items, la capacidad de la mochila
+    # Funcion auxuliar de top dpwn
+    # m[i][w] almacenará el valor máximo que se puede obtener con una capacidad 
+    # máxima de p (pesos) utilizando solo los primeros i elementos
+    # esta función llena m como subproblemas más pequeños necesarios para calcular m[i][w] 
+    # que esten ya resueltos.
  
-    m[i][w] will store the maximum valor that can be attained with a maximum
-    capacidad of w and using only the first i items
-    This function fills m as smaller subproblems needed to compute m[i][w] are
-    solved.
- 
-    valor[i] is the valor of item i and weight[i] is the weight of item i
-    for 1 <= i <= n where n is the number of items.
-    """
-    if m[i][w] >= 0:
-        return m[i][w]
+    # valor[i] es el valor del item i y el peso[i] es el peso del item i
+    # para 1 <= i <= n donde n es el numero de items
+    
+    #S: Devuelve el valor máximo de los primeros i elementos posibles con el peso <= p.
+    
+    if m[i][p] >= 0:
+        return m[i][p]
  
     if i == 0:
         q = 0
-    elif peso[i] <= w:
-        q = max(top_down_aux(valor, peso,m, i - 1 , w - peso[i])+ valor[i],top_down_aux(valor, peso,m, i - 1 , w))
+    elif peso[i] <= p:
+        q = max(top_down_aux(valor, peso,m, i - 1 , p - peso[i])+ valor[i],top_down_aux(valor, peso,m, i - 1 , p))
     else:
-        q = top_down_aux(valor, peso,m, i - 1 , w)
-    m[i][w] = q
-    imprimir_tabla(m)
+        q = top_down_aux(valor, peso,m ,i - 1, p)
+        
+    m[i][p] = q
     return q
 
-def imprimir_tabla(matriz):
-    #E: La matriz para imprimir la tabla
-    #S: La tabla impresa
-    for i in range(0,len(matriz)):
-        print(matriz[i])
- 
-'''
-n = int(input('Enter number of items: '))
-valor = input('Enter the valors of the {} item(s) in order: '
-              .format(n)).split()
-valor = [int(v) for v in valor]
-valor.insert(0, None) # so that the valor of the ith item is at valor[i]
-peso = input('Enter the positive weights of the {} item(s) in order: '
-               .format(n)).split()
-peso = [int(w) for w in peso]
-peso.insert(0, None) # so that the weight of the ith item is at weight[i]
-capacidad = int(input('Enter maximum weight: '))
-
-'''
 
 
-#ans = top_down(valor, peso, capacidad)
-
-valor = [20, 50, 60, 62,40]
-valor.sort()
-valor.insert(0, None)
+valor = [20, 50, 60, 62, 40]
+valor.sort()   #Se debe enviar los valores de los items ordenado ascendentemente
+valor.insert(0, None)  #de modo que el valor del i-ésimo artículo está en valor [i]
 peso = [5, 15, 10, 10, 8]
-peso.insert(0, None) 
+peso.insert(0, None) #de modo que el peso del i-ésimo artículo sea el peso [i]
 
-ans = top_down(valor,peso,30)
-print('The maximum valor of items that can be carried:', ans)
+respuesta = top_down(valor,peso,30)
+print('El valor máximo de los artículos que se pueden llevar: ', respuesta)
 
 
 
