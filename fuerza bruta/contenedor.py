@@ -1,6 +1,8 @@
 import sys
 import numpy as np
 import time
+import sys
+import random
 from collections import defaultdict
 start_time = time.time()
 #------------------------------------------------------Entrada txt-----------------------------------------------------#
@@ -71,11 +73,34 @@ def mochila_fuerza_bruta(input):
     for i in range(len(soluciones)):
         respuesta[entrada.index(soluciones[i])-1] += 1
     print("Mochila Fuerza Bruta")
-    print(beneficio)
+    print("Beneficio Maximo: ", beneficio)
     for i in range(len(respuesta)):
         if respuesta[i] != 0:
-            print(str(i+1)+","+str(respuesta[i]) + " # articulo " +
-                  str(i+1) + " " + str(respuesta[i]) + " unidades")
+            print("Incluidos: "+str(respuesta[i])+","+str(i+1)+"," + str(i+2))
+
+
+def mochila_fuerza_bruta_param():
+    entrada = abrir_archivo(input)
+    i = 0
+    while (i < len(entrada)):
+        entrada[i] = [int(e) for e in entrada[i].split(',')]
+        i += 1
+    w = entrada[0][0]
+    elementos = np.array(entrada[1:])
+    elementos_ordenados = elementos[np.argsort(elementos[:, 0])]
+    elementos_distribuidos = distribuir_entrada(elementos_ordenados)
+    n = len(elementos_distribuidos)
+    soluciones = []
+    beneficio = mochila_recursiva(
+        w, elementos_distribuidos, n, entrada, soluciones)
+    respuesta = generador_lista_de_ceros(len(entrada)-1)
+    for i in range(len(soluciones)):
+        respuesta[entrada.index(soluciones[i])-1] += 1
+    print("Mochila Fuerza Bruta")
+    print("Beneficio Maximo: ", beneficio)
+    for i in range(len(respuesta)):
+        if respuesta[i] != 0:
+            print("Incluidos: "+str(respuesta[i])+","+str(i+1)+"," + str(i+2))
 
 
 '''Mochila recursiva, realiza la solucion de la mochila de una manera recursiva usando fuerza bruta, recibe el peso total que se tiene,
@@ -108,6 +133,17 @@ def mochila_recursiva(w, elementos_distribuidos, n, entrada, soluciones):
 
     return resp
 
+def generar_archivo_mochila(archivo,w,n,minPeso,maxPeso,minBeneficio,maxBeneficio):
+    salida = open(archivo, "x")
+    salida.write(w+"\n")
+    while(n > 0):
+        peso = random.randint(minPeso,maxPeso)
+        beneficio = random.randint(minBeneficio,maxBeneficio)
+        elemento = str(peso) + "," + str(beneficio)+ "\n"
+        salida.write(elemento)
+        n-=1
+    salida.close()
+
 
 #------------------------------------------------------- Main ---------------------------------------------------------#
 '''Main es el controlador, que de acuerdo a la entrada, llama a los metodos indicados por el usuario en terminal'''
@@ -122,10 +158,15 @@ def main():
         print("ARCHIVO indica el archivo de entrada donde el programa toma los parámetros del problema y procede a resolverlo con el algoritmo especificado.")
     else:
         if sys.argv[1] == "1":
-            mochila_fuerza_bruta(sys.argv[1])
-        else:
-            print("Algoritmo no reconocido")
-
-
+            if sys.argv[2] == "-a":
+                mochila_fuerza_bruta(sys.argv[3])
+            if sys.argv[2] == "-p":
+                generar_archivo_mochila(sys.argv[2],int(sys.argv[3]),int(sys.argv[4]),int(sys.argv[5]),int(sys.argv[6]),int(sys.argv[7]),int(sys.argv[8]))
+                print("Archivo creado correctamente.")
+            
 main()
+#Imprime el tiempo que paso en la ejecucion del programa
+
+
 print("--- %s segundos ---" % (time.time() - start_time))
+
