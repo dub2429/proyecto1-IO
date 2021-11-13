@@ -6,6 +6,7 @@
 #David Umañan
 #Fabián Vives
 #Profesor: Carlos Gamboa
+#Se trabaja desde terminal
 
 
 import numpy as np
