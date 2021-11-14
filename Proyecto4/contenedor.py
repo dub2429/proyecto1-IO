@@ -75,7 +75,7 @@ def BottomUp(pesos, beneficios,capacidad):
    #for i in range(len(matrizCeros[0])):
    #    nuevaColumna = "C" + str(i)
    #    columnaTemp = [0]
-   #    columnaTemp.exttiempoFinal(matrizCeros[:,i])
+   #    columnaTemp.extend(matrizCeros[:,i])
    #   #print(matrizCeros[:i])
    #    diccionario[nuevaColumna] = columnaTemp
    ##print(diccionario)
@@ -190,8 +190,8 @@ def generador_lista_de_ceros(n):
 
 #carga máxima del camión
 
-# Útiles para acceso al peso y valores (irían mejor definitiempoFinalo una clase)
-tiempoInicio = time.perf_counter()
+# Útiles para acceso al peso y valores (irían mejor definiendo una clase)
+tiempoInicial = time.perf_counter()
 get_peso = itemgetter(0)
 beneficios = []
 valores = []
@@ -220,7 +220,7 @@ def combinaciones(paquetes, peso_maximo):
         if len(res) == 0:
             resultado.append([p])
         else:
-            resultado.exttiempoFinal([[p]+x for x in res])
+            resultado.extend([[p]+x for x in res])
     
     return resultado
 
@@ -270,7 +270,7 @@ def menu():
             print(arregloValores)
                 
             for i in range(numeroIteraciones):
-                tiempoInicio = time.perf_counter()
+                tiempoInicial = time.perf_counter()
                 print("\n")
                 print("---------------------------------------------------------")
                 print("Iteración "+str(i+1))
@@ -300,8 +300,8 @@ def menu():
                             break
 
                 tiempoFinal = time.perf_counter()
-                #print(tiempoFinal-tiempoInicio)
-                lista1.append(tiempoFinal-tiempoInicio)
+                #print(tiempoFinal-tiempoInicial)
+                lista1.append(tiempoFinal-tiempoInicial)
             print("\nProceso finalizado, el tiempo promedio es "+str(mean(lista1)))
         elif modo=="-p":
             print("Estamos trabajando eso")
@@ -325,7 +325,7 @@ def menu():
                     valores[i][j] = int(valores[i][j])
             print(valores)
             for i in range(numeroIteraciones):
-                tiempoInicio = time.perf_counter()
+                tiempoInicial = time.perf_counter()
                 print("\n")
                 print("---------------------------------------------------------")
                 print("Iteración "+str(i+1))
@@ -355,8 +355,8 @@ def menu():
                             break
 
                 tiempoFinal = time.perf_counter()
-                #print(tiempoFinal-tiempoInicio)
-                lista1.append(tiempoFinal-tiempoInicio)
+                #print(tiempoFinal-tiempoInicial)
+                lista1.append(tiempoFinal-tiempoInicial)
             print("\nProceso finalizado, el tiempo promedio es "+str(mean(lista1)))
 
     elif int(sys.argv[1]) == 2:
@@ -375,14 +375,14 @@ def menu():
             
             for i in range(numeroIteraciones):
 
-                tiempoInicio = time.perf_counter()
+                tiempoInicial = time.perf_counter()
                 BottomUp(pesos,beneficios,capacidad)
                 tiempoFinal = time.perf_counter()
-                iteraciones.append(float("{:.6f}".format((tiempoFinal - tiempoInicio))))
+                iteraciones.append(float("{:.6f}".format((tiempoFinal - tiempoInicial))))
             
             #print(iteraciones)
             print("La media de ejecución es:")
-            #print(datetime.timedelta(seconds= tiempoFinal  - tiempoInicio))
+            #print(datetime.timedelta(seconds= tiempoFinal  - tiempoInicial))
             tiempoBottomUp = mean(iteraciones)
             print(tiempoBottomUp)
         elif modo=="-p":
@@ -402,14 +402,14 @@ def menu():
             
             for i in range(numeroIteraciones):
 
-                tiempoInicio = time.perf_counter()
+                tiempoInicial = time.perf_counter()
                 BottomUp(pesos,beneficios,capacidad)
                 tiempoFinal = time.perf_counter()
-                iteraciones.append(float("{:.6f}".format((tiempoFinal - tiempoInicio))))
+                iteraciones.append(float("{:.6f}".format((tiempoFinal - tiempoInicial))))
             
             #print(iteraciones)
             print("La media de ejecución es:")
-            #print(datetime.timedelta(seconds= tiempoFinal  - tiempoInicio))
+            #print(datetime.timedelta(seconds= tiempoFinal  - tiempoInicial))
             tiempoBottomUp = mean(iteraciones)
             print(tiempoBottomUp)
         
@@ -432,7 +432,7 @@ def menu():
 
             respuesta = top_down(beneficios,pesos,capacidad,valorC)
             for i in range(numeroIteraciones):
-                tiempoInicio = time.perf_counter()
+                tiempoInicial = time.perf_counter()
                 #valor = beneficios
                 
                 respuesta = top_down(beneficios,pesos,capacidad,valorC)
@@ -440,11 +440,11 @@ def menu():
                 #imprimir_tabla(resultadoTop)
                 print(articulos)
                 tiempoFinal = time.perf_counter()
-                iteracionesTD.append(float("{:.6f}".format((tiempoFinal - tiempoInicio))))
+                iteracionesTD.append(float("{:.6f}".format((tiempoFinal - tiempoInicial))))
 
             #print(iteracionesTD)
             print("La media de ejecución es:")
-            #print(datetime.timedelta(seconds= tiempoFinal  - tiempoInicio))
+            #print(datetime.timedelta(seconds= tiempoFinal  - tiempoInicial))
             tiempoTopDown = mean(iteracionesTD)
             print(tiempoTopDown)
         elif modo=="-p":
@@ -467,7 +467,7 @@ def menu():
 
             respuesta = top_down(beneficios,pesos,capacidad,valorC)
             for i in range(numeroIteraciones):
-                tiempoInicio = time.perf_counter()
+                tiempoInicial = time.perf_counter()
                 #valor = beneficios
                 
                 respuesta = top_down(beneficios,pesos,capacidad,valorC)
@@ -475,11 +475,11 @@ def menu():
                 #imprimir_tabla(resultadoTop)
                 print(articulos)
                 tiempoFinal = time.perf_counter()
-                iteracionesTD.append(float("{:.6f}".format((tiempoFinal - tiempoInicio))))
+                iteracionesTD.append(float("{:.6f}".format((tiempoFinal - tiempoInicial))))
 
             #print(iteracionesTD)
             print("La media de ejecución es:")
-            #print(datetime.timedelta(seconds= tiempoFinal  - tiempoInicio))
+            #print(datetime.timedelta(seconds= tiempoFinal  - tiempoInicial))
             tiempoTopDown = mean(iteracionesTD)
             print(tiempoTopDown)
     elif int(sys.argv[1]) == 4:
@@ -503,15 +503,15 @@ def menu():
             
             for i in range(numeroIteraciones):
 
-                tiempoInicio = time.perf_counter()
+                tiempoInicial = time.perf_counter()
                 print("\n")
                 BottomUp(pesos,beneficios,capacidad)
                 tiempoFinal = time.perf_counter()
-                iteraciones.append(float("{:.6f}".format((tiempoFinal - tiempoInicio))))
+                iteraciones.append(float("{:.6f}".format((tiempoFinal - tiempoInicial))))
             
             #print(iteraciones)
             print("La media de ejecución es:")
-            #print(datetime.timedelta(seconds= tiempoFinal  - tiempoInicio))
+            #print(datetime.timedelta(seconds= tiempoFinal  - tiempoInicial))
             tiempoBottomUp = mean(iteraciones)
             print(tiempoBottomUp)
 ####################################################################################################################################
@@ -535,7 +535,7 @@ def menu():
 
             respuesta = top_down(beneficios,pesos,capacidad,valorC)
             for i in range(numeroIteraciones):
-                tiempoInicio = time.perf_counter()
+                tiempoInicial = time.perf_counter()
                 #valor = beneficios
                 
                 respuesta = top_down(beneficios,pesos,capacidad,valorC)
@@ -543,11 +543,11 @@ def menu():
                 #imprimir_tabla(resultadoTop)
                 print(articulos)
                 tiempoFinal = time.perf_counter()
-                iteracionesTD.append(float("{:.6f}".format((tiempoFinal - tiempoInicio))))
+                iteracionesTD.append(float("{:.6f}".format((tiempoFinal - tiempoInicial))))
 
             #print(iteracionesTD)
             print("La media de ejecución es:")
-            #print(datetime.timedelta(seconds= tiempoFinal  - tiempoInicio))
+            #print(datetime.timedelta(seconds= tiempoFinal  - tiempoInicial))
             tiempoTopDown = mean(iteracionesTD)
             print(tiempoTopDown)
 
@@ -573,7 +573,7 @@ def menu():
                     valores[i][j] = int(valores[i][j])
             print(valores)
             for i in range(numeroIteraciones):
-                tiempoInicio = time.perf_counter()
+                tiempoInicial = time.perf_counter()
                 print("\n")
                 print("---------------------------------------------------------")
                 print("Iteración "+str(i+1))
@@ -603,8 +603,8 @@ def menu():
                             break
 
                 tiempoFinal = time.perf_counter()
-                #print(tiempoFinal-tiempoInicio)
-                lista1.append(tiempoFinal-tiempoInicio)
+                #print(tiempoFinal-tiempoInicial)
+                lista1.append(tiempoFinal-tiempoInicial)
             tiempoFB = mean(lista1)
             print("\nProceso finalizado, el tiempo promedio es "+str(tiempoFB))
 ####################################################################################################################################
